@@ -5,12 +5,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-      <home-manager/nixos>
-    ];
+  imports = [ # Include the results of the hardware scan.
+    /etc/nixos/hardware-configuration.nix
+    <home-manager/nixos>
+  ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -48,9 +48,7 @@
 
     enable = true;
 
-    desktopManager = {
-      xterm.enable = false;
-    };
+    desktopManager = { xterm.enable = false; };
 
     displayManager = {
       defaultSession = "none+i3";
@@ -63,9 +61,7 @@
     windowManager.i3.enable = true;
   };
   hardware = {
-    opengl.extraPackages = [
-      pkgs.amdvlk
-    ];  
+    opengl.extraPackages = [ pkgs.amdvlk ];
     bluetooth.enable = true;
   };
   #
@@ -99,61 +95,79 @@
     isNormalUser = true;
     description = "stefan";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    ];
+    packages = with pkgs; [ firefox ];
   };
-
-
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart =
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [
-      "electron-12.2.3"
-    ];
+    permittedInsecurePackages = [ "electron-12.2.3" ];
     packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
+      nur = import (builtins.fetchTarball
+        "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+          inherit pkgs;
+        };
     };
+    overlays = [
+      (import (builtins.fetchTarball {
+        url =
+          "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+      }))
+    ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-	  vim
+    vim
     xfce.thunar
     polkit_gnome
     firefox
-	  neovim
-	  wget
-	  alacritty
-	  zsh
-	  nitrogen
-	  i3
-	  flameshot
-	  lutris
-	  python39
-	  fnm
-	  gh
-	  gcc9
-	  ninja
-	  dtc
-	  cmake
-	  SDL2
-	  picom-jonaburg
-	  lazygit
+    neovim
+    wget
+    alacritty
+    zsh
+    nitrogen
+    i3
+    flameshot
+    lutris
+    python39
+    fnm
+    gh
+    gcc9
+    ninja
+    dtc
+    cmake
+    SDL2
+    picom-jonaburg
+    lazygit
     rofi
-	  pavucontrol
-	  ranger
-	  ponymix
-	  ripgrep
-	  xclip
+    pavucontrol
+    ranger
+    ponymix
+    ripgrep
+    xclip
     git
     nodejs_20
     blueman
@@ -193,10 +207,10 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  home-manager= {
-   useGlobalPkgs = true;
-   useUserPackages = true;
-   users.stefan = import ./home.nix;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.stefan = import ./home.nix;
   };
   users.users.stefan.shell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
