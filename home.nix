@@ -20,6 +20,10 @@
         enableCompletion = true;
         enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
+        shellAliases = {
+          ll = "ls -l";
+          nu = "sudo nixos-rebuild switch -I nixos-config=/home/stefan/.config/nixos/configuration.nix";
+        };
         oh-my-zsh = {
           enable = true;
           plugins = [ "docker-compose" "docker" ];
@@ -50,5 +54,11 @@
         };
       };
     };
+    programs.git = {
+      enable = true;
+      userName  = "Stefan Watt";
+      userEmail = "stefan.watt@gmail.com";
+    };
+    programs.gh.enable = true ;
 }
 

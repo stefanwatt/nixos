@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
       <home-manager/nixos>
     ];
 
@@ -62,12 +62,16 @@
 
     windowManager.i3.enable = true;
   };
-  hardware.opengl.extraPackages = [
-    pkgs.amdvlk
-  ];
+  hardware = {
+    opengl.extraPackages = [
+      pkgs.amdvlk
+    ];  
+    bluetooth.enable = true;
+  };
   #
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.blueman.enable = true;
 
   security.polkit.enable = true;
   # Enable sound with pipewire.
