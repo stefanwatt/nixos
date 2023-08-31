@@ -43,6 +43,8 @@
     lazygit
     rofi
     pavucontrol
+    pulseaudio
+    pulseaudio-ctl
     ranger
     ponymix
     ripgrep
@@ -69,5 +71,29 @@
     chromium
     vscode
     neofetch
+    openshot-qt
+    audacity
+    vlc
+    bun
+    luajitPackages.jsregexp
+    nodePackages.typescript-language-server
+    gnumake
+    sqlite
+    dbeaver
+    neovide
+    brave
+    go
+    air
+    jetbrains.goland
+    supabase-cli
+    gnome.gnome-keyring
+    docker
+    yarn
+    xorg.xf86videoati
+    xorg.xf86videoamdgpu
+    postgresql
+    discord
+    libreoffice
+    unzip
   ];
 }

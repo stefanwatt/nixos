@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
   services.xserver = {
+    enable = true;
     layout = "us";
     xkbVariant = "";
-
-    enable = true;
+    videoDrivers = [ "amdgpu" ];
 
     desktopManager = { xterm.enable = false; };
 

@@ -3,6 +3,7 @@
     /etc/nixos/hardware-configuration.nix
     <home-manager/nixos>
     ./configuration/boot.nix
+    ./configuration/docker.nix
     ./configuration/hardware.nix
     ./configuration/home-manager.nix
     ./configuration/locale.nix
