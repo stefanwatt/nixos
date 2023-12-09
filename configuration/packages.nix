@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "electron-12.2.3" ];
@@ -15,7 +15,6 @@
       }))
     ];
   };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -48,6 +47,7 @@
     ranger
     ponymix
     ripgrep
+    arandr
     xclip
     git
     nodejs_20
@@ -74,7 +74,6 @@
     openshot-qt
     audacity
     vlc
-    bun
     luajitPackages.jsregexp
     nodePackages.typescript-language-server
     gnumake
@@ -85,7 +84,6 @@
     go
     air
     jetbrains.goland
-    supabase-cli
     gnome.gnome-keyring
     docker
     yarn
@@ -95,5 +93,31 @@
     discord
     libreoffice
     unzip
+    dolphin-emu
+    p7zip
+    rar
+    wineWowPackages.stable
+    wine
+    (wine.override { wineBuild = "wine64"; })
+    wineWowPackages.staging
+    winetricks
+    telegram-desktop
+    qbittorrent
+    iftop
+    fzf
+    node2nix
+    gimp
+    xorg.libxcvt
+    jmtpfs
+    virtualbox
+    signal-desktop
+    openssh
+    remmina
+    yt-dlp
+    cloc
+    tty-clock
+    infamousPlugins
+    x42-plugins
+    cura
   ];
 }

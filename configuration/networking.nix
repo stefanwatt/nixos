@@ -8,4 +8,14 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 2999;
+      to = 3001;
+    }
+    {
+      from = 5172;
+      to = 5175;
+    }
+  ];
 }

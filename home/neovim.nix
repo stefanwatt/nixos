@@ -5,7 +5,7 @@
         "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
     }))
   ];
-
+  extraPackages = [ pkgs.sqlite ];
   programs.neovim = {
     enable = true;
     defaultEditor = true;

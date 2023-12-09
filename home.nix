@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -6,7 +6,7 @@
     ./home/cursor.nix
     ./home/firefox.nix
     ./home/git.nix
-    ./home/neovim.nix
+    ./home/nixvim.nix
     ./home/zsh.nix
     ./home/gtk.nix
   ];
@@ -20,4 +20,5 @@
     rustup
     (pkgs.nerdfonts.override { fonts = [ "VictorMono" "DroidSansMono" ]; })
   ];
+  programs.home-manager.enable = true;
 }
