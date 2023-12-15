@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "electron-12.2.3" ];
@@ -119,5 +119,9 @@
     infamousPlugins
     x42-plugins
     cura
+    home-manager
+    megasync
+    temurin-bin
+    maven
   ];
 }

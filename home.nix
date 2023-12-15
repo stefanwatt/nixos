@@ -1,12 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./home/vscode.nix
     ./home/cursor.nix
-    ./home/firefox.nix
     ./home/git.nix
-    ./home/nixvim.nix
+    ./home/neovim.nix
     ./home/zsh.nix
     ./home/gtk.nix
   ];

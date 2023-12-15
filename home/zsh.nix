@@ -1,5 +1,6 @@
-{ config, pkgs, ... }: {
-
+{ lib, pkgs, ... }:
+let sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
+in {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -26,12 +27,8 @@
     initExtra = ''
       bindkey '^f' autosuggest-accept
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      export PATH=$PATH:/home/stefan/Scripts
+      export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
     '';
   };
-  home.sessionVariables = {
-    PATH = "$PATH:/home/stefan/Scripts";
-    REMOTE_VIM_SOCKET = /home/stefan/.local/share/nvim/nvimsocket;
-    LAUNCH_EDITOR = "launch_editor";
-  };
-
 }

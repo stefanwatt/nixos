@@ -1,4 +1,5 @@
 { config, pkgs, ... }: {
+  nixpkgs.config = { allowUnfree = true; };
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [

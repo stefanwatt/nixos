@@ -14,15 +14,17 @@ in {
 
   home.activation.copyLuaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     # Create the directory if it doesn't exist and set permissions
-    mkdir -p ${config.xdg.configHome}/nvim/lua
-    chmod 700 ${config.xdg.configHome}/nvim/lua
+    if [ ! -d ${config.xdg.configHome}/nvim ]; then
+      mkdir -p ${config.xdg.configHome}/nvim
+    fi
+    chmod 770 ${config.xdg.configHome}/nvim
 
     # Ensure the directory is owned by the user
-    chown stefan ${config.xdg.configHome}/nvim/lua
+    chown stefan ${config.xdg.configHome}/nvim
 
     # Copy the files, excluding 'init.lua'
     shopt -s extglob
-    cp -r ${myConfig}/!(init.lua) ${config.xdg.configHome}/nvim/lua
+    cp -r ${myConfig}/!(init.lua) ${config.xdg.configHome}/nvim
   '';
   programs.nixvim = {
     extraPackages = [ pkgs.sqlite ];
@@ -31,11 +33,5 @@ in {
       vim.g.sqlite_clib_path = "${sqliteLibPath}" .. "/libsqlite3.so"
 
     '' + builtins.readFile "${myConfig}/init.lua";
-    plugins = {
-      lsp = {
-        enable = true;
-        servers = { nil_ls.enable = true; };
-      };
-    };
   };
 }
