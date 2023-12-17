@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   hardware = {
+    firmware = [ pkgs.linux-firmware ];
     opengl = {
       extraPackages = [ pkgs.amdvlk ];
       driSupport = true;

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [ "electron-12.2.3" ];
+    permittedInsecurePackages = [ "electron-19.1.9" ];
     packageOverrides = pkgs: {
       nur = import (builtins.fetchTarball
         "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -30,7 +30,7 @@
     i3
     flameshot
     lutris
-    python39
+    python311Full
     fnm
     gh
     gcc9
@@ -83,7 +83,6 @@
     brave
     go
     air
-    jetbrains.goland
     gnome.gnome-keyring
     docker
     yarn

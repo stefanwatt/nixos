@@ -5,7 +5,7 @@ in {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     shellAliases = {
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";
@@ -14,6 +14,7 @@ in {
         "sudo nixos-rebuild switch -I nixos-config=/home/stefan/.config/nixos/configuration.nix";
       split = "bash ~/Scripts/split-screen.sh";
       unsplit = "bash ~/Scripts/unsplit-screen.sh";
+      switchAudio = "bash ~/Scripts/switchAudioDevice.sh";
       ranger = ''
         ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'';
       nvim = "nvim --listen ~/.local/share/nvim/nvimsocket";

@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
