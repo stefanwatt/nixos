@@ -4,6 +4,7 @@
     blueman.enable = true;
     flatpak.enable = true;
     openssh.enable = true;
+    udisks2.enable = true;
   };
   services.udev.packages = [ pkgs.dolphinEmu ];
   xdg.portal.enable = true;

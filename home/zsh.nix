@@ -5,7 +5,7 @@ in {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    syntaxHighlighting.enable = true;
+    enableSyntaxHighlighting = true;
     shellAliases = {
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";

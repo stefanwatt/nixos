@@ -61,7 +61,7 @@ let
     '';
 
     # List of repositories
-    repos = [ "alacritty" "audacity" "autokey" "Code" "i3" "nvim" "rofi" ];
+    repos = [ "alacritty" "audacity" "autokey" "i3" "nvim" "rofi" ];
 
 in
 {

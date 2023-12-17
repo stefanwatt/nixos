@@ -48,6 +48,7 @@
     ponymix
     ripgrep
     arandr
+    udisks2
     xclip
     git
     nodejs_20
