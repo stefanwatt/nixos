@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let xrandr-config = import ./scripts/xrandr.nix { inherit pkgs; };
+in {
   services.xserver = {
     enable = true;
     layout = "us";
@@ -13,6 +15,9 @@
         enable = true;
         user = "stefan";
       };
+      sessionCommands = with pkgs; ''
+        ${xrandr-config.script}/bin/xrandr-config
+      '';
     };
 
     windowManager.i3.enable = true;

@@ -21,6 +21,7 @@
     vim
     xfce.thunar
     polkit_gnome
+    dotnet-sdk
     firefox
     neovim
     wget
@@ -33,6 +34,12 @@
     python311Full
     fnm
     gh
+    easyeffects
+    simplescreenrecorder
+    showmethekey
+    marksman
+    tesseract
+    anydesk
     gcc9
     ninja
     dtc
@@ -49,6 +56,7 @@
     ripgrep
     arandr
     udisks2
+    icu
     xclip
     git
     nodejs_20
@@ -60,6 +68,7 @@
     udiskie
     fd
     luajitPackages.luarocks-nix
+    xorg.libX11
     unzip
     lua-language-server
     dunst
@@ -77,6 +86,8 @@
     vlc
     luajitPackages.jsregexp
     nodePackages.typescript-language-server
+    nodePackages.typescript
+    ardour
     gnumake
     sqlite
     dbeaver

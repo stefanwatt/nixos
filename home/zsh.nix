@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
-let sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
+let
+  sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
+  typescriptPath = lib.makeLibraryPath [ pkgs.nodePackages.typescript ];
 in {
   programs.zsh = {
     enable = true;
@@ -17,7 +19,6 @@ in {
       switchAudio = "bash ~/Scripts/switchAudioDevice.sh";
       ranger = ''
         ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'';
-      nvim = "nvim --listen ~/.local/share/nvim/nvimsocket";
       mount-iso = "mount -o loop $1 $2";
     };
     oh-my-zsh = {
@@ -30,6 +31,8 @@ in {
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       export PATH=$PATH:/home/stefan/Scripts
       export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
+      export TSSERVER=${typescriptPath}/lib/node_modules/typescript/lib/tsserver.js
+      export NODE=${pkgs.nodejs_20}/bin/node
     '';
   };
 }
