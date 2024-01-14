@@ -8,7 +8,6 @@
     ./configuration/home-manager.nix
     ./configuration/locale.nix
     ./configuration/networking.nix
-    ./configuration/overlays.nix
     ./configuration/packages.nix
     ./configuration/pipewire.nix
     ./configuration/programs.nix

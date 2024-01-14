@@ -20,6 +20,7 @@ in {
       ranger = ''
         ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'';
       mount-iso = "mount -o loop $1 $2";
+      vbox = "VirtualBoxVM";
     };
     oh-my-zsh = {
       enable = true;
@@ -33,6 +34,7 @@ in {
       export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
       export TSSERVER=${typescriptPath}/lib/node_modules/typescript/lib/tsserver.js
       export NODE=${pkgs.nodejs_20}/bin/node
+      source ~/.config/.extra-zshrc.zsh
     '';
   };
 }

@@ -18,6 +18,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    templ
+    qtemu
+    qemu_full
+    niv
+    neovim-remote
+    xcolor
     vim
     xfce.thunar
     polkit_gnome

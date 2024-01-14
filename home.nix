@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   imports = [
     ./home/vscode.nix
-    # ./home/dotfiles.nix
     ./home/cursor.nix
     ./home/git.nix
     ./home/neovim.nix
