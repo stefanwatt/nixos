@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let xrandr-config = import ./scripts/xrandr.nix { inherit pkgs; };
 in {
+
   services.xserver = {
     enable = true;
     layout = "us";
@@ -15,11 +16,23 @@ in {
         enable = true;
         user = "stefan";
       };
-      sessionCommands = with pkgs; ''
+      sessionCommands = ''
         ${xrandr-config.script}/bin/xrandr-config
       '';
     };
 
     windowManager.i3.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    i3
+    arandr
+    xdotool
+    nitrogen
+    picom-jonaburg
+    rofi
+    xclip
+    xorg.xkill
+    xorg.libX11
+  ];
 }

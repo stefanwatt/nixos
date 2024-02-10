@@ -1,11 +1,13 @@
 { pkgs, ... }: {
   imports = [
-    ./home/vscode.nix
     ./home/cursor.nix
+    ./home/fzf.nix
     ./home/git.nix
-    ./home/neovim.nix
-    ./home/zsh.nix
     ./home/gtk.nix
+    ./home/neovim.nix
+    ./home/nodejs.nix
+    ./home/vscode.nix
+    ./home/zsh.nix
   ];
   manual.html.enable = false;
   manual.manpages.enable = false;

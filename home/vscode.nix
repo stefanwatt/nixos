@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ vscode ];
+
   nixpkgs.config = { allowUnfree = true; };
   programs.vscode = {
     enable = true;

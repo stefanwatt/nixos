@@ -1,0 +1,42 @@
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    alacritty
+    zsh
+    xfce.thunar
+    ranger
+    dolphin-emu
+    gparted
+    udisks2
+    udiskie
+    blueman
+    rclone
+    wget
+    iftop
+    openssh
+    unzip
+    xcolor
+    wuzz
+    etcher
+    anydesk
+    yt-dlp
+    stylua
+    fd
+    ripgrep
+    fzf
+    cloc
+    tty-clock
+    megasync
+    p7zip
+    rar
+    polkit_gnome
+    xfce.xfce4-power-manager
+    dunst
+    autokey
+    catppuccin-gtk
+    xorg.libxcvt
+    xorg.xf86videoati
+    xorg.xf86videoamdgpu
+  ];
+}
