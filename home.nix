@@ -4,6 +4,7 @@
     ./home/cursor.nix
     ./home/git.nix
     ./home/neovim.nix
+    ./home/tmux.nix
     ./home/zsh.nix
     ./home/gtk.nix
   ];

@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   services = {
+    dbus.enable = true;
     printing.enable = true;
     blueman.enable = true;
     flatpak.enable = true;
