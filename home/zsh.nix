@@ -29,22 +29,23 @@ in {
       theme = "dst";
     };
     initExtra = ''
-            bindkey '^f' autosuggest-accept
-            source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-            export PATH=$PATH:/home/stefan/Scripts:/home/stefan/Applications
-            export PYTHONPATH="${pkgs.python311Packages.packaging}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.six}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.dateutil}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-yaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-base}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pykwalify}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.colorama}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyyaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.west}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyelftools}/${pkgs.python311.sitePackages}:$PYTHONPATH"
-            export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
-            export TSSERVER=${typescriptPath}/lib/node_modules/typescript/lib/tsserver.js
-            export NODE=${pkgs.nodejs_20}/bin/node
-            source ~/.config/.extra-zshrc.zsh
-            find_project() {
-                local selected_directory=$(find ~/Projects -maxdepth 1 -type d -printf "%f\n" | fzf --height 40% --border)
-                if [[ -n $selected_directory ]]; then
-                    nvim ~/Projects/"$selected_directory"
-                else
-                    echo "No directory selected."
-                fi
-            }
+      bindkey '^f' autosuggest-accept
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      export PATH=$PATH:/home/stefan/Scripts:/home/stefan/Applications
+      export PYTHONPATH="${pkgs.python311Packages.packaging}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.six}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.dateutil}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-yaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-base}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pykwalify}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.colorama}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyyaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.west}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyelftools}/${pkgs.python311.sitePackages}:$PYTHONPATH"
+      export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
+      export GRIMBLAST_EDITOR=${pkgs.swappy}
+      export TSSERVER=${typescriptPath}/lib/node_modules/typescript/lib/tsserver.js
+      export NODE=${pkgs.nodejs_20}/bin/node
+      source ~/.config/.extra-zshrc.zsh
+      find_project() {
+          local selected_directory=$(find ~/Projects -maxdepth 1 -type d -printf "%f\n" | fzf --height 40% --border)
+          if [[ -n $selected_directory ]]; then
+              nvim ~/Projects/"$selected_directory"
+          else
+              echo "No directory selected."
+          fi
+      }
       if [[ "$TERM" =~ screen ]] && [[ -n "$TMUX" ]]; then
           export TERM='tmux-256color'
       fi

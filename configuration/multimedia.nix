@@ -14,5 +14,6 @@
     infamousPlugins
     x42-plugins
     easyeffects
+    spotify
   ];
 }
