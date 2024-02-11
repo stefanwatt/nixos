@@ -3,6 +3,7 @@ let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   session = "${pkgs.hyprland}/bin/Hyprland";
   username = "stefan";
+  anyrun = pkgs.callPackage /home/stefan/Applications/anyrun/Cargo.nix { };
 in {
   services.greetd = {
     enable = true;
@@ -18,11 +19,16 @@ in {
       };
     };
   };
-  services.xserver.displayManager.gdm.wayland.enable = true;
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
   services.dbus.enable = true;
   environment.systemPackages = with pkgs; [
+    gtk3
+    gdk-pixbuf
+    pango
+    cairo
+    glib
+    anyrun
     gnome.gdm
     wlprop
     albert
