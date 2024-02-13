@@ -9,7 +9,6 @@
       vscodevim.vim
       svelte.svelte-vscode
       bradlc.vscode-tailwindcss
-      denoland.vscode-deno
       esbenp.prettier-vscode
       formulahendry.auto-rename-tag
     ];

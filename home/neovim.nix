@@ -1,10 +1,5 @@
-{ pkgs, ... }: {
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-    }))
-  ];
+{ pkgs, inputs, ... }: {
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
   home.packages = with pkgs; [
     neovim-remote
     nixfmt

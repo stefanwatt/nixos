@@ -7,8 +7,10 @@ in {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    # syntaxHighlighting.enable = true;
     shellAliases = {
+      flash = "sudo dd bs=4M if=$1 of=$2 status=progress oflag=sync";
+      mv = "rsync -avh --progress";
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";
       turso = "~/.turso/turso";

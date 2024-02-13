@@ -3,10 +3,9 @@
     ./home/cursor.nix
     ./home/fzf.nix
     ./home/git.nix
-    ./home/gtk.nix
     ./home/neovim.nix
-    ./home/nodejs.nix
-    ./home/vscode.nix
+    # ./home/nodejs.nix
+    # ./home/vscode.nix
     ./home/zsh.nix
   ];
   manual.html.enable = false;
@@ -18,7 +17,7 @@
   home.packages = with pkgs; [
     btop
     rustup
-    (pkgs.nerdfonts.override { fonts = [ "VictorMono" "DroidSansMono" ]; })
+    # (pkgs.nerdfonts.override { fonts = [ "VictorMono" "DroidSansMono" ]; })
   ];
   programs.home-manager.enable = true;
 }

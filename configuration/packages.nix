@@ -3,12 +3,6 @@
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "electron-19.1.9" ];
-    packageOverrides = pkgs: rec {
-      nur = import (builtins.fetchTarball
-        "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-          inherit pkgs;
-        };
-    };
   };
   environment.systemPackages = with pkgs; [
     firefox

@@ -1,7 +1,7 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   imports = [
+
     ./hardware-configuration.nix
-    <home-manager/nixos>
     ./configuration/boot.nix
     ./configuration/dev.nix
     ./configuration/filesystem.nix

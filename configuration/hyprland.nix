@@ -3,7 +3,6 @@ let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   session = "${pkgs.hyprland}/bin/Hyprland";
   username = "stefan";
-  anyrun = pkgs.callPackage /home/stefan/Applications/anyrun/Cargo.nix { };
 in {
   services.greetd = {
     enable = true;
@@ -28,7 +27,6 @@ in {
     pango
     cairo
     glib
-    anyrun
     gnome.gdm
     wlprop
     albert

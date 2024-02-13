@@ -1,15 +1,18 @@
 {
   description = "Main config";
-  inputs = { nixpkgs.url = "nixpkgs/nixos-23.11"; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, nixpkgs, ... }:
-    let lib = nixpkgs.lib;
-    in {
-      nixosConfigurations = {
-        stefan = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./configuration.nix ];
-        };
-      };
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules =
+        [ ./configuration.nix inputs.home-manager.nixosModules.default ];
     };
+  };
 }
