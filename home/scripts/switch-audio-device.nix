@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.file."Scripts/switch-audio-device.sh".source =
     pkgs.writeScriptBin "switch-audio-device" ''
-      #!${pkgs.bash}/bin/bash
+              #!${pkgs.bash}/bin/bash
 
       currentSinkId=$(
       	ponymix defaults |
@@ -26,19 +26,19 @@
 
       # iterate over the list of device IDs and print the current index if it matches the current sink ID
       echo "Device IDs:"
-      for i in "$''${!deviceIds[@]}"; do
-      	if [[ "$''${deviceIds[$i]}" = "$''${currentSinkId}" ]]; then
+      for i in "''${!deviceIds[@]}"; do
+      	if [[ "''${deviceIds[$i]}" = "''${currentSinkId}" ]]; then
       		currentIndex="$i"
       	fi
       done
 
-      nextIndex=$(((currentIndex + 1) % $''${#deviceIds[@]}))
+      nextIndex=$(((currentIndex + 1) % ''${#deviceIds[@]}))
 
       echo current index $currentIndex
       echo next index $nextIndex
       # Set the new sink ID to the next device
-      newSinkId=$''${deviceIds[$nextIndex]}
-      newSinkId=$''${newSinkId%:}
+      newSinkId=''${deviceIds[$nextIndex]}
+      newSinkId=''${newSinkId%:}
       ponymix set-default -d "$newSinkId"
 
       echo "Current sink ID: $currentSinkId"
@@ -46,7 +46,7 @@
       ponymix set-default -d "$newSinkId"
       echo "Current sink ID: $currentSinkId"
       echo "New sink ID: $newSinkId"
-      newSinkId=$''${newSinkId%:}
+      newSinkId=''${newSinkId%:}
       ponymix set-default -d "$newSinkId"
       inputIds=$(
       	ponymix list -t sink-input |
@@ -60,7 +60,6 @@
       for i in $inputIds; do
       	ponymix -t sink-input -d "$i" move "$newSinkId"
       done
-
 
     '';
 }
