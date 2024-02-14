@@ -3,7 +3,24 @@ let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   session = "${pkgs.hyprland}/bin/Hyprland";
   username = "stefan";
+  startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
+    ${pkgs.dbus-sway-environment}/bin/dbus-sway-environment
+    ${pkgs.configure-gtk}/bin/configure-gtk
+    ${pkgs.systemctl}/bin/systemctl --user import-environment
+    ${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc
+    ${pkgs.xsetroot}/bin/xsetroot -cursor_name left_ptr 
+    ${pkgs.xfce4-power-manager}/bin/xfce4-power-manager 
+    ${pkgs.autokey-gtk}/bin/autokey-gtk
+    ${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad 
+    ${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s"}/bin/"alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s
+    ${pkgs.polkit-gnome-authentication-agent-1}/bin/polkit-gnome-authentication-agent-1
+    ${pkgs.udiskie}/bin/udiskie
+    ${pkgs.swaybg}/bin/swaybg -m fill -i /home/stefan/.config/sway/wallpaper.png
+    ${pkgs.blueman-applet}/bin/blueman-applet
+    ${pkgs.pypr}/bin/pypr
+  '';
 in {
+  imports = [ inputs.anyrun.homeManagerModules.default ];
   nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
 
   services.greetd = {
@@ -23,7 +40,7 @@ in {
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
   services.dbus.enable = true;
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     hyprprop
     gtk3
     gdk-pixbuf
@@ -61,5 +78,10 @@ in {
     })
 
   ];
-  programs.hyprland.enable = true;
+  programs.hyprland.package =
+    inputs.hyprland.packages."${pkgs.system}".hyprland;
+  wayland.hyprland = {
+    enable = true;
+    settings = { exec-once = "${startupScript}/bin/start"; };
+  };
 }

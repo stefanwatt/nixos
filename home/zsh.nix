@@ -7,15 +7,14 @@ in {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    # syntaxHighlighting.enable = true;
+    syntaxHighlighting.enable = true;
     shellAliases = {
       flash = "sudo dd bs=4M if=$1 of=$2 status=progress oflag=sync";
       mv = "rsync -avh --progress";
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";
       turso = "~/.turso/turso";
-      nu =
-        "sudo nixos-rebuild switch -I nixos-config=/home/stefan/.config/nixos/configuration.nix";
+      nu = "sudo nixos-rebuild switch --flake ~/.config/nixos/";
       split = "bash ~/Scripts/split-screen.sh";
       unsplit = "bash ~/Scripts/unsplit-screen.sh";
       switchAudio = "bash ~/Scripts/switchAudioDevice.sh";

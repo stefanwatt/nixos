@@ -1,6 +1,7 @@
 {
   description = "Main config";
   inputs = {
+    hyprland.url = "github:hyprwm/Hyprland";
     nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";

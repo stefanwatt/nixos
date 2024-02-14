@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./home/anyrun.nix
+    ./home/hyprland.nix
     ./home/cursor.nix
     ./home/fzf.nix
     ./home/git.nix

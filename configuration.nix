@@ -19,7 +19,6 @@
     ./configuration/settings.nix
     ./configuration/shell.nix
     # ./configuration/sway.nix
-    ./configuration/hyprland.nix
     ./configuration/system.nix
     ./configuration/systemd.nix
     ./configuration/users.nix
