@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.file."./scripts/switch-audio-device.sh".source =
+  home.file."Scripts/switch-audio-device.sh".source =
     pkgs.writeScriptBin "switch-audio-device" ''
       #!${pkgs.bash}/bin/bash
 
