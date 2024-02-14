@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   session = "${pkgs.hyprland}/bin/Hyprland";
   username = "stefan";
 in {
+  nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
+
   services.greetd = {
     enable = true;
     settings = {
@@ -22,6 +24,7 @@ in {
   xdg.portal.wlr.enable = true;
   services.dbus.enable = true;
   environment.systemPackages = with pkgs; [
+    hyprprop
     gtk3
     gdk-pixbuf
     pango
