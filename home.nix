@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./home/anyrun.nix
+    ./home/alacritty.nix
     ./home/scripts.nix
     ./home/hyprland/hyprland.nix
     ./home/cursor.nix
