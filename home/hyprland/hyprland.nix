@@ -1,7 +1,15 @@
 { pkgs, inputs, userSettings, ... }:
 let
+  mapHyprlandColors = { colors }:
+    let
+      hexToArgb = name: value: {
+        "${"$"}${name}" = "rgb(${builtins.substring 1 6 value})";
+      };
+    in builtins.foldl' (acc: name: acc // (hexToArgb name colors.${name})) { }
+    (builtins.attrNames colors);
+
   startupScript = import ./startup.nix { inherit pkgs; };
-  colorSettings = import ./colors.nix { colors = userSettings.colors; };
+  colorSettings = mapHyprlandColors { colors = userSettings.colors; };
 in {
   imports = [ ./pyprland.nix ];
   nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
