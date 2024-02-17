@@ -35,6 +35,8 @@ in {
     systemd.enable = true;
     plugins = [ inputs.hy3.packages."${pkgs.system}".hy3 ];
     settings = {
+      "$font_name" = userSettings.font.mono.name;
+      "$font_size" = userSettings.font.mono.size;
       exec-once = "${startupScript}/bin/start";
       source = [
         "/home/stefan/.config/nixos/home/hyprland/config/general.conf"
