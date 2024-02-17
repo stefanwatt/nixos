@@ -1,11 +1,4 @@
 { pkgs, inputs, ... }: {
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [ "electron-19.1.9" ];
-  };
-  services.dbus.enable = true;
-
   environment.systemPackages = with pkgs; [
     (inputs.anyrun.packages.${pkgs.system}.anyrun)
     firefox
