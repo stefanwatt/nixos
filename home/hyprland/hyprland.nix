@@ -33,11 +33,13 @@ in {
     systemd.enable = true;
     plugins = [ inputs.hy3.packages."${pkgs.system}".hy3 ];
     settings = {
-      source =
-        [ ./config/general.conf ./config/windows.conf ./config/keymaps.conf ];
-      sourceFirst = true;
+      source = [
+        "/home/stefan/.config/nixos/home/hyprland/config/general.conf"
+        "/home/stefan/.config/nixos/home/hyprland/config/windows.conf"
+        "/home/stefan/.config/nixos/home/hyprland/config/keymaps.conf"
+        "/home/stefan/.config/nixos/home/hyprland/config/hy3.conf"
+      ];
       exec-once = "${startupScript}/bin/start";
-
     };
   };
 }
