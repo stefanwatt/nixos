@@ -2,7 +2,7 @@
   imports = [
     ./home/anyrun.nix
     ./home/scripts.nix
-    ./home/hyprland.nix
+    ./home/hyprland/hyprland.nix
     ./home/cursor.nix
     ./home/fzf.nix
     ./home/git.nix
