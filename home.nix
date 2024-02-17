@@ -6,6 +6,7 @@
     ./home/cursor.nix
     ./home/fzf.nix
     ./home/git.nix
+    ./home/gtk.nix
     ./home/neovim.nix
     ./home/nodejs.nix
     ./home/vscode.nix

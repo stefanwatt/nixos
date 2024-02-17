@@ -84,6 +84,7 @@ in {
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     enable = true;
+    plugins = [ inputs.hy3.packages."${pkgs.system}".hy3 ];
     settings = {
       source = "/home/stefan/.config/my-hypr/hyprland.conf";
       exec-once = "${startupScript}/bin/start";
