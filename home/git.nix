@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs.git = {
     enable = true;
     userName = "Stefan Watt";
@@ -9,5 +9,4 @@
     };
   };
   programs.gh.enable = true;
-
 }

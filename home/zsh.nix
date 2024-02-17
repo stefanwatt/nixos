@@ -3,6 +3,10 @@ let
   sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
   typescriptPath = lib.makeLibraryPath [ pkgs.nodePackages.typescript ];
 in {
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   programs.zsh = {
     enable = true;
     enableCompletion = true;

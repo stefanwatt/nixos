@@ -1,11 +1,11 @@
-{ ... }: {
-  users.users.stefan = {
+{ userSettings, ... }: {
+  users.users."${userSettings.username}" = {
     isNormalUser = true;
-    description = "stefan";
+    description = userSettings.username;
     extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
   };
   users.extraGroups = {
-    vboxusers.members = [ "stefan" ];
-    docker.members = [ "stefan" ];
+    vboxusers.members = [ userSettings.username ];
+    docker.members = [ userSettings.username ];
   };
 }

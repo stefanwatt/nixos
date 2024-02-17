@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.pointerCursor = let
     getFrom = url: hash: name: {
       gtk.enable = true;
