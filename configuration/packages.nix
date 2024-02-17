@@ -6,7 +6,7 @@
   environment.systemPackages = with pkgs; [
     (inputs.anyrun.packages.${pkgs.system}.anyrun)
     firefox
-    # chromium
+    chromium
     brave
     discord
     telegram-desktop
