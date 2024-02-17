@@ -10,6 +10,7 @@
     ./home/gtk.nix
     ./home/neovim.nix
     ./home/nodejs.nix
+    ./home/templ.nix
     ./home/vscode.nix
     ./home/zsh.nix
   ];
