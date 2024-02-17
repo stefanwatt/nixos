@@ -1,10 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, userSettings, ... }: {
   gtk = {
     enable = true;
-    font = {
-      name = "Victor Mono Nerd Font Mono";
-      size = 12;
-    };
+    font = userSettings.font.regular;
     theme = {
       name = "Catppuccin-Frappe-Compact-Pink-Dark";
       package = pkgs.catppuccin-gtk.override {

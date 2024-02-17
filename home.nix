@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, userSettings, ... }: {
   imports = [
     ./home/anyrun.nix
     ./home/alacritty.nix
@@ -16,13 +16,13 @@
   manual.html.enable = false;
   manual.manpages.enable = false;
   fonts.fontconfig.enable = true;
-  home.username = "stefan";
-  home.homeDirectory = "/home/stefan";
+  home.username = userSettings.username;
+  home.homeDirectory = "/home/" + userSettings.username;
   home.stateVersion = "23.05";
   home.packages = with pkgs; [
     btop
     rustup
     (pkgs.nerdfonts.override { fonts = [ "VictorMono" "DroidSansMono" ]; })
   ];
-  programs.home-manager.enable = true;
+  programs.home-manager = { enable = true; };
 }

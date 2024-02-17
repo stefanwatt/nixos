@@ -7,7 +7,6 @@
     ./configuration/filesystem.nix
     ./configuration/gaming.nix
     ./configuration/hardware.nix
-    ./configuration/home-manager.nix
     ./configuration/locale.nix
     ./configuration/multimedia.nix
     ./configuration/networking.nix

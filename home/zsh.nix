@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, userSettings, pkgs, ... }:
 let
   sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
   typescriptPath = lib.makeLibraryPath [ pkgs.nodePackages.typescript ];
@@ -14,7 +14,12 @@ in {
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";
       turso = "~/.turso/turso";
-      nu = "sudo nixos-rebuild switch --flake ~/.config/nixos/";
+      nu = "sudo nixos-rebuild switch --flake ~/.config/nixos";
+      hu =
+        "home-manager switch --flake ~/.config/nixos/#${userSettings.username}";
+      nfu = "sudo nix flake update ~/.config/nixos";
+      rollback =
+        "sudo nix-env -p /nix/var/nix/profiles/system --rollback && sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch";
       split = "bash ~/Scripts/split-screen.sh";
       unsplit = "bash ~/Scripts/unsplit-screen.sh";
       switchAudio = "bash ~/Scripts/switchAudioDevice.sh";
