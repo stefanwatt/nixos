@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, pkgs-unstable, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./configuration/dev.nix
@@ -68,7 +68,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     firefox
     chromium
     brave
@@ -90,6 +90,7 @@
     alacritty
     zsh
     xfce.thunar
+    lxqt.qps
     ranger
     dolphin-emu
     gparted
@@ -118,12 +119,11 @@
     polkit_gnome
     xfce.xfce4-power-manager
     dunst
-    autokey
     catppuccin-gtk
     xorg.libxcvt
     xorg.xf86videoati
     xorg.xf86videoamdgpu
     ps
-  ];
+  ]) ++ (with pkgs-unstable; [ input-remapper ]);
 
 }

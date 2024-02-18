@@ -15,7 +15,9 @@ in {
   nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
   home.packages = with pkgs; [
     xorg.xhost
-    autokey
+    xorg.xmodmap
+    xorg.xev
+    wev
     hyprprop
     gtk3
     gdk-pixbuf
@@ -45,7 +47,10 @@ in {
     settings = {
       "$font_name" = userSettings.font.mono.name;
       "$font_size" = userSettings.font.mono.size;
-      exec-once = "${startupScript}/bin/start";
+      exec-once = [
+        "${startupScript}/bin/start"
+        "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${userSettings.username}/.Xmodmap"
+      ];
       source = [
         "/home/stefan/.config/nixos/home/hyprland/config/general.conf"
         "/home/stefan/.config/nixos/home/hyprland/config/windows.conf"

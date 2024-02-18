@@ -20,6 +20,21 @@
           TimeoutStopSec = 10;
         };
       };
+      xmodmap = with userSettings; {
+        description = "remap keys";
+        wantedBy = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart =
+            "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${username}/.Xmodmap";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
+
       udiskie = {
         description = "udiskie automount service";
         wantedBy = [ "default.target" ];

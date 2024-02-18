@@ -6,10 +6,6 @@ in {
       [pyprland]
       plugins = ["scratchpads"]
 
-      [scratchpads.autokey]
-      command = "${pkgs.autokey}/bin/autokey-gtk"
-      margin = 50
-
       [scratchpads.term]
       command = "${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad"
       margin = 50
