@@ -41,6 +41,9 @@
   };
 
   nix = {
+    extraOptions = ''
+      warn-dirty = false
+    '';
     settings = {
       substituters = [
         "https://hyprland.cachix.org"
