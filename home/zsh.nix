@@ -35,9 +35,11 @@ in {
     };
     oh-my-zsh = {
       enable = true;
-      plugins = [ "docker-compose" "docker" ];
       theme = "dst";
     };
+    # initExtraFirst = ''
+    #   zmodload zsh/zprof
+    # '';
     initExtra = ''
       bindkey '^f' autosuggest-accept
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
@@ -47,6 +49,10 @@ in {
       export GRIMBLAST_EDITOR=${pkgs.swappy}
       export TSSERVER=${typescriptPath}/lib/node_modules/typescript/lib/tsserver.js
       export NODE=${pkgs.nodejs_20}/bin/node
+      autoload -Uz compinit
+      zstyle ':completion:*' use-compinit no
+      [[ $commands[compinit] ]] && compinit
+      autoload -Uz add-zsh-hook
       source ~/.config/.extra-zshrc.zsh
       find_project() {
           local selected_directory=$(find ~/Projects -maxdepth 1 -type d -printf "%f\n" | fzf --height 40% --border)

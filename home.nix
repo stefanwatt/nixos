@@ -1,5 +1,5 @@
 { pkgs, inputs, userSettings, ... }: {
-  nixpkgs.overlays = [ inputs.templ.overlay ];
+  nixpkgs.overlays = [ inputs.templ.overlays.default ];
   imports = [
     ./home/anyrun.nix
     ./home/alacritty.nix

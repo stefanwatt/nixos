@@ -4,6 +4,7 @@ pkgs.writeShellScriptBin "start" ''
   echo "Starting up..."
   echo "systemctl --user import-environment"
   systemctl --user import-environment &
+  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
   echo "${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc"
   ${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc &
   echo "${pkgs.autokey}/bin/autokey-gtk"

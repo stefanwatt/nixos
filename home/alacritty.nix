@@ -1,32 +1,16 @@
-{ lib, userSettings,pkgs, ... }:
+{ userSettings, pkgs, ... }:
 let
-  normalColors = {
-          black = surface0;
-          red = red;
-          green = green;
-          yellow = yellow;
-          blue = blue;
-          magenta = maroon;
-          cyan = sapphire;
-          white = text;
-        
+  normalColors = with userSettings.colors; {
+    black = surface0;
+    red = red;
+    green = green;
+    yellow = yellow;
+    blue = blue;
+    magenta = maroon;
+    cyan = sapphire;
+    white = text;
+
   };
-  adjustColorBrightness = color: factor:
-    let
-      hexToDec = hex: lib.parseInt (builtins.substring 0 2 hex);
-      colorRGB =
-        lib.mapAttrs (n: v: hexToDec (builtins.substring v (v + 2) color)) {
-          r = 1;
-          g = 3;
-          b = 5;
-        };
-      adjust = c:
-        lib.substring 0 2 (builtins.toLower
-          (builtins.replaceStrings [ "0x" ] [ "" ]
-            (lib.toHex (lib.clamp (c * factor) 0 255))));
-      adjustedColor =
-        "''${adjust colorRGB.r}${adjust colorRGB.g}${adjust colorRGB.b}";
-    in adjustedColor;
 in {
   programs.alacritty = {
     enable = true;
@@ -101,49 +85,50 @@ in {
           };
         };
         normal = normalColors;
-        bright = lib.mapAttrs (n: v: adjustColorBrightness v 1.2) normalColors;
-        dim =  lib.mapAttrs (n: v: adjustColorBrightness v 0.8) normalColors;
+        bright = normalColors;
+        dim = normalColors;
 
-      visualBell = {
-        animation = "EaseOutExpo";
-        duration = 0;
-        color = "0xffffff";
+        visualBell = {
+          animation = "EaseOutExpo";
+          duration = 0;
+          color = "0xffffff";
+        };
+
+        selection = {
+          semanticEscapeChars = ",│`|:\"'' ()[]{}<>";
+          saveToClipboard = false;
+        };
+
+        dynamicTitle = true;
+
+        cursor = { unfocusedHollow = true; };
+
+        liveConfigReload = true;
+
+        shell = { program = "${pkgs.zsh}/bin/zsh"; };
+
+        workingDirectory = null;
+
+        enableExperimentalConptyBackend = false;
+
+        debug = {
+          renderTimer = false;
+          persistentLogging = false;
+          logLevel = "Warn";
+          printEvents = false;
+        };
+
+        mouse = {
+          doubleClick = { threshold = 300; };
+          tripleClick = { threshold = 300; };
+          hideWhenTyping = false;
+        };
+
+        mouseBindings = [{
+          mouse = "Middle";
+          action = "PasteSelection";
+        }];
       };
-
-      selection = {
-        semanticEscapeChars = ",│`|:\"'' ()[]{}<>";
-        saveToClipboard = false;
-      };
-
-      dynamicTitle = true;
-
-      cursor = { unfocusedHollow = true; };
-
-      liveConfigReload = true;
-
-      shell = { program = "${pkgs.zsh}/bin/zsh"; };
-
-      workingDirectory = null;
-
-      enableExperimentalConptyBackend = false;
-
-      debug = {
-        renderTimer = false;
-        persistentLogging = false;
-        logLevel = "Warn";
-        printEvents = false;
-      };
-
-      mouse = {
-        doubleClick = { threshold = 300; };
-        tripleClick = { threshold = 300; };
-        hideWhenTyping = false;
-      };
-
-      mouseBindings = [{
-        mouse = "Middle";
-        action = "PasteSelection";
-      }];
     };
   };
 }
