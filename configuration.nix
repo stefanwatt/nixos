@@ -123,6 +123,7 @@
     xorg.libxcvt
     xorg.xf86videoati
     xorg.xf86videoamdgpu
+    ps
   ];
 
 }

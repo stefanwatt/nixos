@@ -1,17 +1,25 @@
-{ pkgs, ... }: {
-  home.file.".config/hypr/pyprland.toml".text = ''
-    [pyprland]
-    plugins = ["scratchpads"]
+{ pkgs, userSettings, ... }:
+let path = with userSettings; "/home/${username}/.config/hypr/pyprland.toml";
+in {
+  home.file."${path}" = {
+    text = ''
+      [pyprland]
+      plugins = ["scratchpads"]
 
-    [scratchpads.term]
-    command = "alacritty --class scratchpad"
-    margin = 50
+      [scratchpads.autokey]
+      command = "${pkgs.autokey}/bin/autokey-gtk"
+      margin = 50
 
-    [scratchpads.clock]
-    command = "alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s"
-    margin = 50
-  '';
+      [scratchpads.term]
+      command = "${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad"
+      margin = 50
 
+      [scratchpads.clock]
+      command = "${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s"
+      margin = 50
+    '';
+    force = true;
+  };
   home.packages = with pkgs;
     [
       (pkgs.python311Packages.buildPythonPackage rec {

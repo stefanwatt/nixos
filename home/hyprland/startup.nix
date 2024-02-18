@@ -7,8 +7,6 @@ pkgs.writeShellScriptBin "start" ''
   dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
   echo "${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc"
   ${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc &
-  echo "${pkgs.autokey}/bin/autokey-gtk"
-  ${pkgs.autokey}/bin/autokey-gtk &
   echo "${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad "
   ${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad  &
   echo "${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s"

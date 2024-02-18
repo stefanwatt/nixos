@@ -27,7 +27,6 @@
       };
     };
   };
-
   services = {
     dbus.enable = true;
     printing.enable = true;

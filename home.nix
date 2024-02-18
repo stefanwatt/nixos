@@ -8,6 +8,7 @@
     ./home/cursor.nix
     ./home/git.nix
     ./home/gtk.nix
+    ./home/keymap.nix
     ./home/neovim.nix
     ./home/nodejs.nix
     ./home/vscode.nix
