@@ -1,19 +1,22 @@
-{ config, pkgs, pkgs-unstable, ... }: {
-  imports = [
+{ config, userSettings, pkgs, pkgs-unstable, ... }: {
+  imports = let
+    xserver = if userSettings.wm.name == "i3" then
+      [ ./configuration/xserver.nix ]
+    else
+      [ ];
+  in [
     ./hardware-configuration.nix
     ./configuration/dev.nix
     ./configuration/filesystem.nix
     ./configuration/gaming.nix
-    # ./configuration/i3.nix
     ./configuration/locale.nix
     ./configuration/multimedia.nix
     ./configuration/networking.nix
     ./configuration/pipewire.nix
     ./configuration/services.nix
-    # ./configuration/sway.nix
     ./configuration/users.nix
     ./configuration/virtualisation.nix
-  ];
+  ] ++ xserver;
 
   system.stateVersion = "23.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
@@ -83,8 +86,6 @@
     cloc
     home-manager
     megasync
-    i3
-    nitrogen
     jmtpfs
     tty-clock
     alacritty
@@ -117,7 +118,6 @@
     p7zip
     rar
     polkit_gnome
-    xfce.xfce4-power-manager
     dunst
     catppuccin-gtk
     xorg.libxcvt

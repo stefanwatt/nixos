@@ -38,13 +38,22 @@
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
 
       systemSettings = { system = "x86_64-linux"; };
+      hyprland = {
+        name = "hyprland";
+        configFilePath = "~/.config/nixos/home/hyprland/hyprland.nix";
+        session = inputs.hyprland.packages."${pkgs.system}".hyprland
+          + "/bin/Hyprland";
+
+      };
+      i3 = {
+        name = "i3";
+        configFilePath = "~/.config/nixos/home/i3.nix";
+        session = "exec ${pkgs.i3}/bin/i3";
+      };
 
       userSettings = {
         username = "stefan";
-        wm = "hyprland";
-        session =
-          inputs."${userSettings.wm}".packages."${pkgs.system}"."${userSettings.wm}"
-          + "/bin/Hyprland";
+        wm = i3;
         font = {
           mono = {
             name = "Victor Mono Nerd Font Mono";

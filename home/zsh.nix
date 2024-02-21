@@ -53,7 +53,6 @@ in {
       zstyle ':completion:*' use-compinit no
       [[ $commands[compinit] ]] && compinit
       autoload -Uz add-zsh-hook
-      source ~/.config/.extra-zshrc.zsh
       find_project() {
           local selected_directory=$(find ~/Projects -maxdepth 1 -type d -printf "%f\n" | fzf --height 40% --border)
           if [[ -n $selected_directory ]]; then

@@ -1,10 +1,15 @@
-{ pkgs, inputs, userSettings, ... }: {
+{ pkgs, inputs, userSettings, ... }:
+let
+  wm = if userSettings.wm.name == "i3" then
+    ./home/i3.nix
+  else
+    ./home/hyprland/hyprland.nix;
+in {
   nixpkgs.overlays = [ inputs.templ.overlays.default ];
   imports = [
     ./home/anyrun.nix
     ./home/alacritty.nix
     ./home/scripts/switch-audio-device.nix
-    ./home/hyprland/hyprland.nix
     ./home/cursor.nix
     ./home/git.nix
     ./home/gtk.nix
@@ -13,6 +18,7 @@
     ./home/nodejs.nix
     ./home/vscode.nix
     ./home/zsh.nix
+    wm
   ];
   manual.html.enable = false;
   manual.manpages.enable = false;

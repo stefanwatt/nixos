@@ -1,39 +1,33 @@
-{ userSettings, pkgs, ... }: {
+{ userSettings, pkgs, ... }:
+let
+  graphicalService = execStart: {
+    description = execStart;
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = execStart;
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+in {
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
   security.polkit.enable = true;
   security.rtkit.enable = true;
   systemd = {
-    user.services = {
-      polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        wantedBy = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart =
-            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-      xmodmap = with userSettings; {
-        description = "remap keys";
-        wantedBy = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart =
-            "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${username}/.Xmodmap";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
+    user.services = with userSettings; {
+      polkit-gnome-authentication-agent-1 = graphicalService
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      xmodmap = graphicalService
+        "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${username}/.Xmodmap";
+
+      dunst = graphicalService
+        "${pkgs.dunst}/bin/dunst -conf /home/${username}/.dunstrc";
 
       udiskie = {
         description = "udiskie automount service";
@@ -50,16 +44,16 @@
     openssh.enable = true;
     udisks2.enable = true;
   };
-  services.greetd = {
+  services.greetd = with userSettings; {
     enable = true;
     settings = {
       initial_session = {
-        command = "${userSettings.session}";
-        user = "${userSettings.username}";
+        command = "${wm.session}";
+        user = "${username}";
       };
       default_session = {
-        command = "${userSettings.session}";
-        user = "${userSettings.username}";
+        command = "${wm.session}";
+        user = "${username}";
       };
     };
   };
