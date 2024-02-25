@@ -11,11 +11,13 @@
     picom-jonaburg
     rofi
     xfce.xfce4-power-manager
+    lxappearance
     xclip
     xorg.xkill
     xorg.libX11
     xorg.xsetroot
     xorg.xf86videoamdgpu
     xorg.xinit
+    wezterm
   ];
 }

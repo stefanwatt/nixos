@@ -1,10 +1,10 @@
-{ pkgs, userSettings, ... }:
-let path="/home/${userSettings.username}/.dunstrc" in
-{
+{ userSettings, ... }:
+let path = "/home/${userSettings.username}/.dunstrc";
+in {
   home.file."${path}" = {
     text = with userSettings.colors; ''
       [global]
-      font = ${userSettings.font.regular.name} ${userSettings.font.regular.size}
+      font = ${userSettings.font.regular.name} 10
       markup = full
       format = "%s\n%b"
       sort = no

@@ -1,4 +1,4 @@
-{ pkgs, userSettings }: {
+{ pkgs, userSettings, ... }: {
   home.file."/home/${userSettings.username}/.i3-startup" = {
     text = ''
       exec > "/home/stefan/startup.log" 2>&1  # Redirect stdout and stderr to a log file

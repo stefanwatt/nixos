@@ -10,6 +10,7 @@ in {
     ./home/anyrun.nix
     ./home/alacritty.nix
     ./home/scripts/switch-audio-device.nix
+    ./home/scripts/fuzzy-find-project.nix
     ./home/cursor.nix
     ./home/git.nix
     ./home/gtk.nix
