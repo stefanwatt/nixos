@@ -8,7 +8,7 @@
         accents = [ "pink" ];
         size = "compact";
         tweaks = [ "rimless" ];
-        variant = "frappe";
+        variant = "latte";
       };
     };
   };

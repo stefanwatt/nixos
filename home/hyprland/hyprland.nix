@@ -1,5 +1,19 @@
 { pkgs, inputs, userSettings, ... }:
 let
+  graphicalService = execStart: {
+    description = execStart;
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = execStart;
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
   mapHyprlandColors = { colors }:
     let
       hexToArgb = name: value: {
@@ -39,6 +53,24 @@ in {
     xdg-desktop-portal-wlr
     mako
   ];
+  systemd.user.services = with userSettings; {
+    xmodmap = graphicalService
+      "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${username}/.Xmodmap";
+    greetd = with userSettings; {
+      enable = true;
+      settings = {
+        initial_session = {
+          command = "${wm.session}";
+          user = "${username}";
+        };
+        default_session = {
+          command = "${wm.session}";
+          user = "${username}";
+        };
+      };
+    };
+
+  };
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     enable = true;

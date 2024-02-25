@@ -47,8 +47,8 @@
       };
       i3 = {
         name = "i3";
-        configFilePath = "~/.config/nixos/home/i3.nix";
-        session = "exec ${pkgs.i3}/bin/i3";
+        configFilePath = "~/.config/myi3/config";
+        session = "startx ~/.xinitrc ${pkgs.i3}/bin/i3";
       };
 
       userSettings = {
@@ -65,6 +65,7 @@
           };
         };
         colors = {
+          transparent = "#01000000";
           rosewater = "#f2d5cf";
           flamingo = "#eebebe";
           pink = "#f4b8e4";

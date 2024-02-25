@@ -1,7 +1,7 @@
 { pkgs, inputs, userSettings, ... }:
 let
   wm = if userSettings.wm.name == "i3" then
-    ./home/i3.nix
+    ./home/i3/i3.nix
   else
     ./home/hyprland/hyprland.nix;
 in {

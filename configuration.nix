@@ -72,6 +72,7 @@
   };
 
   environment.systemPackages = (with pkgs; [
+    i3
     firefox
     chromium
     brave

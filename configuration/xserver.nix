@@ -4,9 +4,9 @@
     layout = "us";
     xkbVariant = "";
     videoDrivers = [ "amdgpu" ];
-    desktopManager = { xterm.enable = false; };
+    windowManager.i3.enable = true;
     displayManager = {
-      defaultSession = "none+${userSettings.wm.name}";
+      defaultSession = "none+i3";
       autoLogin = {
         enable = true;
         user = userSettings.username;
