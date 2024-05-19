@@ -12,6 +12,8 @@ in {
     lua-language-server
     luajitPackages.jsregexp
     stylua
+    imagemagick
+    ueberzugpp
   ];
   home.file."${luaConfigPaths}" = {
     text = ''
@@ -29,5 +31,6 @@ in {
     enable = true;
     defaultEditor = true;
     package = pkgs.neovim-nightly;
+    extraLuaPackages = ps: [ ps.magick ];
   };
 }

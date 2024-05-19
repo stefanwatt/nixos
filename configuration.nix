@@ -14,6 +14,7 @@
     ./configuration/networking.nix
     ./configuration/pipewire.nix
     ./configuration/services.nix
+    ./configuration/stylix.nix
     ./configuration/users.nix
     ./configuration/virtualisation.nix
   ] ++ xserver;
@@ -28,6 +29,7 @@
   hardware = {
     firmware = [ pkgs.linux-firmware ];
     opengl = {
+      enable = true;
       extraPackages = [ pkgs.amdvlk ];
       driSupport = true;
       driSupport32Bit = true;
@@ -41,6 +43,14 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
+    binfmt.registrations.appimage = {
+      wrapInterpreterInShell = false;
+      interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+      recognitionType = "magic";
+      offset = 0;
+      mask = "\\xff\\xff\\xff\\xff\\x00\\x00\\x00\\x00\\xff\\xff\\xff";
+      magicOrExtension = "\\x7fELF....AI\\x02";
+    };
   };
 
   nix = {
@@ -48,6 +58,7 @@
       warn-dirty = false
     '';
     settings = {
+      auto-optimise-store = true;
       substituters = [
         "https://hyprland.cachix.org"
         "https://nix-community.cachix.org"
@@ -73,7 +84,7 @@
 
   environment.systemPackages = (with pkgs; [
     i3
-    firefox
+    # firefox
     chromium
     brave
     discord
@@ -107,7 +118,7 @@
     xcolor
     wuzz
     etcher
-    anydesk
+    # anydesk
     yt-dlp
     stylua
     fd
@@ -120,11 +131,17 @@
     rar
     polkit_gnome
     dunst
+    jq
     catppuccin-gtk
     xorg.libxcvt
     xorg.xf86videoati
     xorg.xf86videoamdgpu
     ps
+    fuse-common
+    appimage-run
+    libGL
+    libGLU
+    mods
   ]) ++ (with pkgs-unstable; [ input-remapper ]);
 
 }

@@ -14,5 +14,9 @@
     x42-plugins
     easyeffects
     spotify
+    libsForQt5.pix
+    video-trimmer
+    mpv
+    calibre
   ];
 }

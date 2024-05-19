@@ -9,14 +9,15 @@ in {
   imports = [
     ./home/anyrun.nix
     ./home/alacritty.nix
-    ./home/scripts/switch-audio-device.nix
-    ./home/scripts/fuzzy-find-project.nix
-    ./home/cursor.nix
+    # ./home/cursor.nix
     ./home/git.nix
     ./home/gtk.nix
     ./home/keymap.nix
     ./home/neovim.nix
     ./home/nodejs.nix
+    ./home/scripts/switch-audio-device.nix
+    ./home/scripts/fuzzy-find-project.nix
+    ./home/ssbm.nix
     ./home/vscode.nix
     ./home/zsh.nix
     wm
@@ -31,7 +32,9 @@ in {
     templ
     btop
     rustup
-    (pkgs.nerdfonts.override { fonts = [ "VictorMono" "DroidSansMono" ]; })
+    (pkgs.nerdfonts.override {
+      fonts = [ "VictorMono" "DroidSansMono" "FiraCode" ];
+    })
   ];
   programs.home-manager = { enable = true; };
 }

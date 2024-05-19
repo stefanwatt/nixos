@@ -35,7 +35,10 @@
     openssh.enable = true;
     udisks2.enable = true;
   };
-  services.udev.packages = [ pkgs.dolphinEmu ];
+  services.udev.packages = [ pkgs.dolphinEmu pkgs.vial pkgs.via ];
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  '';
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

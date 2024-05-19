@@ -42,10 +42,10 @@ in {
       set $ws9 "9"
       set $ws10 "0"
       set $browser "brave"
-      set $terminal "alacritty"
-      client.focused ${lavender} ${transparent} ${text} ${peach} ${lavender}
+      set $terminal "wezterm"
+      client.focused ${lavender} ${lavender} ${text} ${peach} ${lavender}
       client.focused_inactive ${lavender} ${transparent} ${text} ${peach} ${lavender}
-      client.unfocused ${base} ${transparent} ${text} ${peach} ${surface0}
+      client.unfocused ${base} ${surface0} ${text} ${peach} ${surface0}
       client.urgent ${red} ${transparent} ${text} ${peach} ${red}
       client.placeholder ${base} ${transparent} ${text} ${peach} ${surface0}
       client.background ${transparent}

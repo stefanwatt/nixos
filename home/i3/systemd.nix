@@ -13,8 +13,10 @@ let
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;
-      Environment =
-        [ "DISPLAY=:0" "PATH=${pkgs.ps}/bin:/run/current-system/sw/bin" ];
+      Environment = [
+        "DISPLAY=:0"
+        "PATH=${pkgs.ps}/bin:/run/current-system/sw/bin:/home/stefan/.nix-profile/bin/"
+      ];
     };
   };
 in {
@@ -31,9 +33,9 @@ in {
     flameshot = graphicalService "${pkgs.flameshot}/bin/flameshot";
     blueman = graphicalService "${pkgs.blueman}/bin/blueman-applet";
     clock = graphicalService
-      "${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s";
+      "${pkgs.wezterm}/bin/wezterm --config font_size=40 start --always-new-process --class Clock,Clock tty-clock -n -s";
     scratchpad = graphicalService
-      "${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad";
+      "${pkgs.wezterm}/bin/wezterm start --class scratchpad,scratchpad";
     polkit = graphicalService
       "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
 

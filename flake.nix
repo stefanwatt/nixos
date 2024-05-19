@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     flake-utils.url = "github:numtide/flake-utils";
     hyprContrib.url = "github:hyprwm/contrib";
@@ -22,6 +23,11 @@
     };
     templ = {
       url = "github:a-h/templ";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ssbm = { url = "github:djanatyn/ssbm-nix"; };
+    nix-bubblewrap = {
+      url = "git+https://git.sr.ht/~fgaz/nix-bubblewrap";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
