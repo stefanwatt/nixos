@@ -3,7 +3,7 @@ let
   luaConfigPaths = with userSettings;
     "/home/${username}/.config/nvim/lua/config/paths.lua";
 in {
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.default ];
   home.packages = with pkgs; [
     neovim-remote
     nixfmt

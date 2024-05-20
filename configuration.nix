@@ -142,6 +142,7 @@
     libGL
     libGLU
     mods
+    qdirstat
   ]) ++ (with pkgs-unstable; [ input-remapper ]);
 
 }

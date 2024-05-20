@@ -1,5 +1,8 @@
 { pkgs, userSettings, inputs, ... }: {
   imports = [ inputs.stylix.nixosModules.stylix ];
+  stylix.autoEnable = true;
+  stylix.targets.gtk.enable = true;
+  stylix.homeManagerIntegration.followSystem = true;
   stylix.base16Scheme = {
     base00 = "#303446";
     base01 = "#292c3c";
@@ -19,8 +22,9 @@
     base0F = "#eebebe";
   };
   stylix.image = "/home/${userSettings.username}/.config/myi3/wallpaper.png";
-  stylix.cursor.package = pkgs.fuchsia-cursor;
-  stylix.cursor.name = "fuchsia-cursor";
+  stylix.cursor.package = pkgs.bibata-cursors;
+  stylix.cursor.name = "Bibata-Modern-Ice";
+  stylix.cursor.size = 5;
   stylix.fonts = {
     monospace = {
       package = pkgs.nerdfonts.override {

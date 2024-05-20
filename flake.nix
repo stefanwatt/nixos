@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
+    neovim.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     flake-utils.url = "github:numtide/flake-utils";
     hyprContrib.url = "github:hyprwm/contrib";
