@@ -38,7 +38,7 @@
     arandr
     xdotool
     nitrogen
-    picom-jonaburg
+    picom
     rofi
     xfce.xfce4-power-manager
     lxappearance

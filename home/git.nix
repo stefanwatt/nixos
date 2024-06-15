@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs-unstable, ... }: {
   programs.git = {
     enable = true;
     userName = "Stefan Watt";
@@ -10,5 +10,9 @@
         "nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
     };
   };
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    package = pkgs-unstable.gh;
+  };
+
 }

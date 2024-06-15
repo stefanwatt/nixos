@@ -24,7 +24,7 @@ in {
     dunst = graphicalService
       "${pkgs.dunst}/bin/dunst -conf /home/${username}/.dunstrc";
     picom = graphicalService
-      "${pkgs.picom-jonaburg}/bin/picom --config /home/${username}/.config/nixos/home/i3/config/picom.conf";
+      "${pkgs.picom}/bin/picom --config /home/${username}/.config/nixos/home/i3/config/picom.conf";
     go-launch = graphicalService
       "/home/${username}/Projects/go-launch/build/bin/go-launch";
     power-manager = graphicalService

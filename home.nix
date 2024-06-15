@@ -8,7 +8,6 @@ in {
   nixpkgs.overlays = [ inputs.templ.overlays.default ];
   imports = [
     ./home/anyrun.nix
-    ./home/alacritty.nix
     # ./home/cursor.nix
     ./home/git.nix
     ./home/gtk.nix

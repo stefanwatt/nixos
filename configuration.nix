@@ -143,6 +143,6 @@
     libGLU
     mods
     qdirstat
-  ]) ++ (with pkgs-unstable; [ input-remapper ]);
+  ]) ++ (with pkgs-unstable; [ input-remapper yazi ]);
 
 }

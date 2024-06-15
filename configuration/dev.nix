@@ -12,7 +12,6 @@
       vim
       neofetch
       git
-      gh
       lazygit
       ninja
       cmake
@@ -47,5 +46,11 @@
       arduino-core
       clang-tools
       bear
-    ] ++ (with pkgs-unstable; [ wails gleam arduino-ide ]);
+    ] ++ (with pkgs-unstable; [
+      wails
+      python312Packages.tiktoken
+      gleam
+      arduino-ide
+      gh
+    ]);
 }

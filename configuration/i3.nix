@@ -30,7 +30,7 @@ in {
     arandr
     xdotool
     nitrogen
-    picom-jonaburg
+    picom
     rofi
     xclip
     xorg.xkill
