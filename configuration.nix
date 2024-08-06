@@ -84,7 +84,7 @@
 
   environment.systemPackages = (with pkgs; [
     i3
-    # firefox
+    firefox
     chromium
     brave
     discord
@@ -93,7 +93,7 @@
     signal-desktop
     remmina
     libreoffice
-    dbeaver
+    dbeaver-bin
     gnome.gnome-keyring
     cloc
     home-manager
@@ -117,7 +117,6 @@
     unzip
     xcolor
     wuzz
-    etcher
     # anydesk
     yt-dlp
     stylua
@@ -143,6 +142,7 @@
     libGLU
     mods
     qdirstat
+    pinta
   ]) ++ (with pkgs-unstable; [ input-remapper yazi ]);
 
 }

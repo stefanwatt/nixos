@@ -8,9 +8,9 @@ in {
     enableZshIntegration = true;
   };
   programs.zsh = {
+    autosuggestion.enable = true;
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
       arudino-ide = "LIBGL_ALWAYS_SOFTWARE=1 arduino-ide";
@@ -35,6 +35,8 @@ in {
         ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'';
       mount-iso = "mount -o loop $1 $2";
       vbox = "VirtualBoxVM";
+      W =
+        "nvim -c 'setlocal buftype=nofile bufhidden=wipe' -c 'nnoremap <buffer> q :q!<CR>' -";
     };
     oh-my-zsh = {
       enable = true;
@@ -75,6 +77,61 @@ in {
       }
       function fw() {
         rg --line-number --no-heading --color=always --smart-case "" $1 | fzf -d ':' -n 2.. --ansi --no-sort --preview-window 'down:20%:+{2}' --preview 'bat --style=numbers --color=always --highlight-line {2} {1}'
+      }
+
+      function wezterm_split_horizontal() {
+        wezterm cli split-pane --horizontal
+      }
+
+      function wezterm_split_bottom() {
+        wezterm cli split-pane --bottom
+      }
+
+      function wezterm_close_pane() {
+        wezterm cli kill-pane
+      }
+
+      function enter_copy_mode_visual() {
+        # Simulate 'Ctrl+Shift+X'
+        zle -C ctrl_shift_x "send-keys C-x"
+        zle -C ctrl_shift_x "send-keys C-S-x"
+        zle ctrl_shift_x
+
+        # Delay to ensure the command is processed
+        sleep 0.1
+        
+        # Simulate 'v'
+        zle -C v_key "send-keys v"
+        zle v_key
+      }
+
+      function enter_copy_mode_visual_line() {
+        # Simulate 'Ctrl+Shift+X'
+        zle -C ctrl_shift_x "send-keys C-x"
+        zle -C ctrl_shift_x "send-keys C-S-x"
+        zle ctrl_shift_x
+
+        # Delay to ensure the command is processed
+        sleep 0.1
+        
+        # Simulate 'V'
+        zle -C v_key "send-keys V"
+        zle v_key
+      }
+
+      function zvm_after_lazy_keybindings() {
+        zvm_define_widget wezterm_split_horizontal
+        zvm_define_widget wezterm_split_bottom
+        zvm_define_widget wezterm_close_pane
+        zvm_define_widget enter_copy_mode_visual
+        zvm_define_widget enter_copy_mode_visual_line
+
+        zvm_bindkey vicmd 'v' enter_copy_mode_visual
+        zvm_bindkey vicmd 'V' enter_copy_mode_visual_line
+
+        zvm_bindkey vicmd ' v' wezterm_split_horizontal
+        zvm_bindkey vicmd ' h' wezterm_split_bottom
+        zvm_bindkey vicmd ' q' wezterm_close_pane
       }
     '';
   };

@@ -8,10 +8,19 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     neovim.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    flake-utils.url = "github:numtide/flake-utils";
     hyprContrib.url = "github:hyprwm/contrib";
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.35.0";
     hy3 = {
@@ -33,7 +42,8 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nix-ld, nixpkgs-unstable, nixpkgs, home-manager, flake-utils
+    , ... }@inputs:
     let
       pkgs = import nixpkgs {
         inherit (systemSettings) system;
@@ -41,6 +51,39 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "electron-19.1.9" ];
         };
+        overlays = [
+          (final: prev: {
+            gleam = final.rustPlatform.buildRustPackage rec {
+              pname = "gleam";
+              version = "1.3.2";
+
+              src = final.fetchFromGitHub {
+                owner = "gleam-lang";
+                repo = "gleam";
+                rev = "v${version}";
+                sha256 =
+                  "sha256-ncb95NjBH/Nk4XP2QIq66TgY1F7UaOaRIEvZchdo5Kw="; # Update this hash
+              };
+
+              cargoHash =
+                "sha256-6fbQOvmXWsU+6QiEHMNsbwuaIH9j0wzp0sNR7W8sBAE="; # Update this hash
+
+              nativeBuildInputs = with final; [ pkg-config ];
+
+              buildInputs = with final; [ openssl ];
+
+              # Disable running the tests as part of the build process
+              doCheck = false;
+
+              meta = with final.lib; {
+                description =
+                  "A friendly language for building type-safe, scalable systems!";
+                homepage = "https://gleam.run/";
+                license = licenses.asl20;
+              };
+            };
+          })
+        ];
       };
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
 
@@ -123,6 +166,7 @@
             inherit userSettings;
             inherit systemSettings;
             inherit pkgs-unstable;
+            inherit nix-ld;
           };
         };
       };

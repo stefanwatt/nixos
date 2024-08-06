@@ -14,9 +14,10 @@
     x42-plugins
     easyeffects
     spotify
-    libsForQt5.pix
+    cinnamon.pix
     video-trimmer
     mpv
     calibre
+    pinta
   ];
 }

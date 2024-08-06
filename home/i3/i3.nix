@@ -1,4 +1,4 @@
-{ pkgs, userSettings, ... }: {
+{ pkgs, pkgs-unstable, userSettings, ... }: {
   imports = [ ./dunst.nix ./config.nix ./systemd.nix ./startup.nix ];
   home.pointerCursor = let
     getFrom = url: hash: name: {
@@ -31,24 +31,24 @@
     '';
     force = true;
   };
-  home.packages = with pkgs; [
-    i3
-    polkit_gnome
-    autokey
-    arandr
-    xdotool
-    nitrogen
-    picom
-    rofi
-    xfce.xfce4-power-manager
-    lxappearance
-    xclip
-    xorg.xkill
-    xorg.libX11
-    xorg.xsetroot
-    xorg.xf86videoamdgpu
-    xorg.xinit
-    wezterm
-    emoji-picker
-  ];
+  home.packages = with pkgs;
+    [
+      i3
+      polkit_gnome
+      autokey
+      arandr
+      xdotool
+      nitrogen
+      picom
+      rofi
+      xfce.xfce4-power-manager
+      lxappearance
+      xclip
+      xorg.xkill
+      xorg.libX11
+      xorg.xsetroot
+      xorg.xf86videoamdgpu
+      xorg.xinit
+      emoji-picker
+    ] ++ (with pkgs-unstable; [ wezterm ]);
 }

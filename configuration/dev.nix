@@ -1,6 +1,14 @@
-{ pkgs, pkgs-unstable, ... }: {
+{ pkgs, nix-ld, pkgs-unstable, ... }: {
+
+  imports = [ nix-ld.nixosModules.nix-ld ];
   users.users.stefan.shell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "100000";
+  }];
   environment.systemPackages = with pkgs;
     [
       dotnet-sdk
@@ -25,7 +33,7 @@
       marksman
       deno
       kitty
-      erlang
+      erlang_27
       elixir
       libatomic_ops
       bat
@@ -46,11 +54,20 @@
       arduino-core
       clang-tools
       bear
+      modd
+      yarn
     ] ++ (with pkgs-unstable; [
+      zed-editor
       wails
       python312Packages.tiktoken
-      gleam
       arduino-ide
       gh
+      protobuf
+      protoc-gen-grpc-web
+      protoc-gen-js
     ]);
+  programs.nix-ld.dev = {
+    enable = true;
+    libraries = with pkgs; [ nodejs_20 ];
+  };
 }

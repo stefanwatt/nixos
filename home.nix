@@ -8,15 +8,14 @@ in {
   nixpkgs.overlays = [ inputs.templ.overlays.default ];
   imports = [
     ./home/anyrun.nix
-    # ./home/cursor.nix
     ./home/git.nix
+    ./home/gleam.nix
     ./home/gtk.nix
     ./home/keymap.nix
     ./home/neovim.nix
     ./home/nodejs.nix
     ./home/scripts/switch-audio-device.nix
     ./home/scripts/fuzzy-find-project.nix
-    ./home/ssbm.nix
     ./home/vscode.nix
     ./home/zsh.nix
     wm
