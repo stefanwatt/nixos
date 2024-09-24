@@ -19,5 +19,6 @@
     mpv
     calibre
     pinta
+    gmrender-resurrect
   ];
 }

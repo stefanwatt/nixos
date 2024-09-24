@@ -140,7 +140,6 @@
     appimage-run
     libGL
     libGLU
-    mods
     qdirstat
     pinta
   ]) ++ (with pkgs-unstable; [ input-remapper yazi ]);

@@ -16,6 +16,8 @@ in {
       arudino-ide = "LIBGL_ALWAYS_SOFTWARE=1 arduino-ide";
       wd = "wails dev --loglevel Error";
       flash = "sudo dd bs=4M if=$1 of=$2 status=progress oflag=sync";
+      fm =
+        "nvim -c 'lua require(\"mini.files\").open(vim.fn.argc() > 0 and vim.fn.argv()[1] or nil, false)' -c 'lua vim.defer_fn(function() vim.opt.laststatus=0 end,100)'  -c 'autocmd User MiniFilesExplorerClose quitall!'";
       copy = "rsync -avh --progress";
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
       ll = "ls -l";
@@ -31,12 +33,18 @@ in {
       split = "bash ~/Scripts/split-screen.sh";
       unsplit = "bash ~/Scripts/unsplit-screen.sh";
       switchAudio = "bash ~/Scripts/switchAudioDevice.sh";
+      py = "python3.11";
       ranger = ''
         ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'';
       mount-iso = "mount -o loop $1 $2";
       vbox = "VirtualBoxVM";
       W =
         "nvim -c 'setlocal buftype=nofile bufhidden=wipe' -c 'nnoremap <buffer> q :q!<CR>' -";
+      epni = "ep --noninteractive";
+      fzfind = ''fzf --preview="bat --color=always {}"'';
+      find-file = "find $1 -type f -name $2";
+      find-dir = "find $1 -type d -name $2";
+
     };
     oh-my-zsh = {
       enable = true;
@@ -44,6 +52,7 @@ in {
     };
     initExtra = ''
       bindkey '^f' autosuggest-accept
+      source ~/.extra-zshrc
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       export PATH=$PATH:/home/stefan/Scripts:/home/stefan/Applications:/home/stefan/.local/share/nvim/mason/bin
       export ARDUINO_LANGUAGE_SERVER_CONFIG=~/.config/arduino-cli/arduino-cli.yaml
@@ -66,6 +75,7 @@ in {
       if [[ "$TERM" =~ screen ]] && [[ -n "$TMUX" ]]; then
           export TERM='tmux-256color'
       fi
+
       function ff() {
         local repo_root=$(git rev-parse --show-toplevel 2> /dev/null)
         if [[ $? != 0 ]]; then

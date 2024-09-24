@@ -27,6 +27,8 @@ in {
       "${pkgs.picom}/bin/picom --config /home/${username}/.config/nixos/home/i3/config/picom.conf";
     go-launch = graphicalService
       "/home/${username}/Projects/go-launch/build/bin/go-launch";
+    ai-chat =
+      graphicalService "/home/${username}/Projects/ai-chat/build/bin/ai-chat";
     power-manager = graphicalService
       "${pkgs.xfce.xfce4-power-manager}/bin/xfce4-power-manager";
     autokey = graphicalService "${pkgs.autokey}/bin/autokey-gtk";

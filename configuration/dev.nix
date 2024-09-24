@@ -12,7 +12,7 @@
   environment.systemPackages = with pkgs;
     [
       dotnet-sdk
-      python311Full
+      (python311Full.withPackages (ps: with ps; [ tiktoken ]))
       gcc9
       go
       delve
@@ -56,15 +56,18 @@
       bear
       modd
       yarn
+      wails
     ] ++ (with pkgs-unstable; [
       zed-editor
-      wails
-      python312Packages.tiktoken
       arduino-ide
       gh
       protobuf
       protoc-gen-grpc-web
       protoc-gen-js
+      mods
+      glow
+      gum
+      helix
     ]);
   programs.nix-ld.dev = {
     enable = true;

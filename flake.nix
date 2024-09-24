@@ -55,7 +55,7 @@
           (final: prev: {
             gleam = final.rustPlatform.buildRustPackage rec {
               pname = "gleam";
-              version = "1.3.2";
+              version = "1.4.1";
 
               src = final.fetchFromGitHub {
                 owner = "gleam-lang";
@@ -66,7 +66,7 @@
               };
 
               cargoHash =
-                "sha256-6fbQOvmXWsU+6QiEHMNsbwuaIH9j0wzp0sNR7W8sBAE="; # Update this hash
+                "sha256-5+LQKCBWXvvJJN0U+t9elSem4WLdoosiEAH4H+4bZ9U="; # Update this hash
 
               nativeBuildInputs = with final; [ pkg-config ];
 
