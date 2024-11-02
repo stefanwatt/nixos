@@ -1,4 +1,4 @@
-{ userSettings, ... }: {
+{ userSettings, pkgs-unstable, ... }: {
   users.users."${userSettings.username}" = {
     isNormalUser = true;
     description = userSettings.username;

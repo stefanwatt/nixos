@@ -44,7 +44,8 @@ in {
       fzfind = ''fzf --preview="bat --color=always {}"'';
       find-file = "find $1 -type f -name $2";
       find-dir = "find $1 -type d -name $2";
-
+      modscl = "mods --continue-last";
+      modsclip = "xclip -selection clipboard -o | mods";
     };
     oh-my-zsh = {
       enable = true;

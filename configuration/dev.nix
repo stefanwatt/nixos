@@ -1,7 +1,7 @@
 { pkgs, nix-ld, pkgs-unstable, ... }: {
 
   imports = [ nix-ld.nixosModules.nix-ld ];
-  users.users.stefan.shell = pkgs.zsh;
+  users.users.stefan.shell = pkgs-unstable.nushell;
   environment.shells = with pkgs; [ zsh ];
   security.pam.loginLimits = [{
     domain = "*";
@@ -14,6 +14,7 @@
       dotnet-sdk
       (python311Full.withPackages (ps: with ps; [ tiktoken ]))
       gcc9
+      postman
       go
       delve
       gdlv
@@ -31,7 +32,6 @@
       temurin-bin
       maven
       marksman
-      deno
       kitty
       erlang_27
       elixir
@@ -68,6 +68,7 @@
       glow
       gum
       helix
+      deno
     ]);
   programs.nix-ld.dev = {
     enable = true;

@@ -6,7 +6,7 @@ in {
   home.packages = with pkgs;
     [
       neovim-remote
-      nixfmt
+      nixfmt-classic
       neovide
       luajitPackages.luarocks-nix
       lua-language-server

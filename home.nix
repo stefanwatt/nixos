@@ -17,6 +17,7 @@ in {
     ./home/scripts/switch-audio-device.nix
     ./home/scripts/fuzzy-find-project.nix
     ./home/vscode.nix
+    ./home/nushell.nix
     ./home/zsh.nix
     wm
   ];

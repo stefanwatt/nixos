@@ -22,9 +22,9 @@
     base0F = "#eebebe";
   };
   stylix.image = "/home/${userSettings.username}/.config/myi3/wallpaper.png";
-  stylix.cursor.package = pkgs.bibata-cursors;
-  stylix.cursor.name = "Bibata-Modern-Ice";
-  stylix.cursor.size = 5;
+  # stylix.cursor.package = pkgs.bibata-cursors;
+  # stylix.cursor.name = "Bibata-Modern-Ice";
+  # stylix.cursor.size = 5;
   stylix.fonts = {
     monospace = {
       package = pkgs.nerdfonts.override {

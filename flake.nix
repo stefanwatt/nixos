@@ -13,12 +13,12 @@
       url = "github:oxalica/rust-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
+        # flake-utils.follows = "flake-utils";
       };
     };
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/cf8b6e2d4e8aca8ef14b839a906ab5eb98b08561";
     neovim.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     hyprContrib.url = "github:hyprwm/contrib";
