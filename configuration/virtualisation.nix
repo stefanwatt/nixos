@@ -1,10 +1,10 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [ docker virtualbox ];
+  environment.systemPackages = with pkgs; [ docker ];
   virtualisation = {
     docker.enable = true;
-    virtualbox.host = {
-      enable = true;
-      enableExtensionPack = true;
-    };
+    # virtualbox.host = {
+    #   enable = true;
+    #   enableExtensionPack = true;
+    # };
   };
 }

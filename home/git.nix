@@ -6,6 +6,7 @@
     extraConfig = {
       core.editor = "vim";
       pull.rebase = true;
+      push.autoSetupRemote = true;
       mergetool.cmd =
         "nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
     };

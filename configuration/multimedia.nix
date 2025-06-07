@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  musnix.enable = true;
   environment.systemPackages = with pkgs; [
     obs-studio
     flameshot
@@ -7,6 +8,8 @@
     gimp
     openshot-qt
     audacity
+    talentedhack
+    autotalent
     vlc
     ardour
     cura
@@ -20,5 +23,6 @@
     calibre
     pinta
     gmrender-resurrect
+    ffmpeg
   ];
 }

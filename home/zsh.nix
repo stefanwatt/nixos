@@ -13,6 +13,7 @@ in {
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
+      gvim = "/home/stefan/Projects/nvim-gui/build/bin/nvim-gui";
       arudino-ide = "LIBGL_ALWAYS_SOFTWARE=1 arduino-ide";
       wd = "wails dev --loglevel Error";
       flash = "sudo dd bs=4M if=$1 of=$2 status=progress oflag=sync";
@@ -20,6 +21,7 @@ in {
         "nvim -c 'lua require(\"mini.files\").open(vim.fn.argc() > 0 and vim.fn.argv()[1] or nil, false)' -c 'lua vim.defer_fn(function() vim.opt.laststatus=0 end,100)'  -c 'autocmd User MiniFilesExplorerClose quitall!'";
       copy = "rsync -avh --progress";
       ytdl = "yt-dlp -o ~/Music/$1 -x --audio-format mp3 $2";
+      neodiff = "NVIM_APPNAME=nvim-minimal nvim -d -o $1 $2";
       ll = "ls -l";
       turso = "~/.turso/turso";
       nu = "sudo nixos-rebuild switch --flake ~/.config/nixos";
@@ -57,6 +59,7 @@ in {
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       export PATH=$PATH:/home/stefan/Scripts:/home/stefan/Applications:/home/stefan/.local/share/nvim/mason/bin
       export ARDUINO_LANGUAGE_SERVER_CONFIG=~/.config/arduino-cli/arduino-cli.yaml
+      export MANPAGER='nvim +Man!'
       export PYTHONPATH="${pkgs.python311Packages.packaging}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.six}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.dateutil}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-yaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.ruamel-base}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pykwalify}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.colorama}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyyaml}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.west}/${pkgs.python311.sitePackages}:${pkgs.python311Packages.pyelftools}/${pkgs.python311.sitePackages}:$PYTHONPATH"
       export SQLITE3_LIB=${sqliteLibPath}/libsqlite3.so
       export GRIMBLAST_EDITOR=${pkgs.swappy}

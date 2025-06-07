@@ -1,19 +1,5 @@
-{ pkgs, inputs, userSettings, ... }:
+{ pkgs, pkgs-unstable, inputs, userSettings, ... }:
 let
-  graphicalService = execStart: {
-    description = execStart;
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = execStart;
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
-
   mapHyprlandColors = { colors }:
     let
       hexToArgb = name: value: {
@@ -25,51 +11,37 @@ let
   startupScript = import ./startup.nix { inherit pkgs; };
   colorSettings = mapHyprlandColors { colors = userSettings.colors; };
 in {
-  imports = [ ./pyprland.nix ];
   nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
-  home.packages = with pkgs; [
+  home.packages = with pkgs-unstable; [
     xorg.xhost
     xorg.xmodmap
     xorg.xev
     wev
     hyprprop
-    gtk3
     gdk-pixbuf
     pango
     cairo
     glib
-    gnome.gdm
+    gdm
     wlprop
     albert
     wl-clipboard
     wdisplays
     swaybg
     swappy
-    greetd.greetd
-    greetd.tuigreet
     grim
     grimblast
     xdg-desktop-portal
     xdg-desktop-portal-wlr
     mako
+    wezterm
+    ghostty
+    satty
+    slurp
   ];
-  systemd.user.services = with userSettings; {
-    xmodmap = graphicalService
-      "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${username}/.Xmodmap";
-    greetd = with userSettings; {
-      enable = true;
-      settings = {
-        initial_session = {
-          command = "${wm.session}";
-          user = "${username}";
-        };
-        default_session = {
-          command = "${wm.session}";
-          user = "${username}";
-        };
-      };
-    };
-
+  home.file."Scripts/go-launch.sh" = {
+    source = ../scripts/go-launch.sh;
+    executable = true;
   };
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
@@ -77,11 +49,13 @@ in {
     systemd.enable = true;
     plugins = [ inputs.hy3.packages."${pkgs.system}".hy3 ];
     settings = {
+      "$mod" = "SUPER";
       "$font_name" = userSettings.font.mono.name;
       "$font_size" = userSettings.font.mono.size;
       exec-once = [
         "${startupScript}/bin/start"
         "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${userSettings.username}/.Xmodmap"
+        "${pkgs.wezterm}/bin/wezterm"
       ];
       source = [
         "/home/stefan/.config/nixos/home/hyprland/config/general.conf"

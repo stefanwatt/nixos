@@ -5,12 +5,13 @@ pkgs.writeShellScriptBin "start" ''
   echo "systemctl --user import-environment"
   systemctl --user import-environment &
   dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
+  ~/.nix-profile/wezterm &
   echo "${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc"
   ${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc &
-  echo "${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad "
-  ${pkgs.alacritty}/bin/alacritty --class scratchpad,scratchpad  &
-  echo "${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s"
-  ${pkgs.alacritty}/bin/alacritty -o font.size=36 --class Clock,Clock -e tty-clock -n -s &
+  echo "${pkgs.wezterm}/bin/wezterm --class scratchpad,scratchpad "
+  ${pkgs.wezterm}/bin/wezterm start --class scratchpad,scratchpad  &
+  echo "${pkgs.wezterm}/bin/wezterm -o font.size=40 --class Clock,Clock -e tty-clock -n -s"
+  ${pkgs.wezterm}/bin/wezterm --config font_size=40 start --always-new-process --class Clock,Clock tty-clock -n -s &
   echo "${pkgs.polkit_gnome}/bin/polkit-gnome-authentication-agent-1"
   ${pkgs.polkit_gnome}/bin/polkit-gnome-authentication-agent-1 &
   echo "${pkgs.udiskie}/bin/udiskie"
@@ -20,7 +21,5 @@ pkgs.writeShellScriptBin "start" ''
   echo "${pkgs.blueman}/bin/blueman-applet"
   ${pkgs.blueman}/bin/blueman-applet &
   echo "${pkgs.xorg.xhost}/bin/xhost +local:"
-  ${pkgs.xorg.xhost}/bin/xhost +local: &
-  echo "${pkgs.pyprland}/bin/pypr"
-  ${pkgs.pyprland}/bin/pypr &
+  ${pkgs.xorg.xhost}/bin/xhost +local:
 ''

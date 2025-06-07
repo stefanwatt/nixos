@@ -21,8 +21,8 @@ let
   };
 in {
   systemd.user.services = with userSettings; {
-    dunst = graphicalService
-      "${pkgs.dunst}/bin/dunst -conf /home/${username}/.dunstrc";
+    # dunst = graphicalService
+    #   "${pkgs.dunst}/bin/dunst -conf /home/${username}/.dunstrc";
     picom = graphicalService
       "${pkgs.picom}/bin/picom --config /home/${username}/.config/nixos/home/i3/config/picom.conf";
     go-launch = graphicalService

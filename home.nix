@@ -5,7 +5,6 @@ let
   else
     ./home/hyprland/hyprland.nix;
 in {
-  nixpkgs.overlays = [ inputs.templ.overlays.default ];
   imports = [
     ./home/anyrun.nix
     ./home/git.nix
@@ -28,11 +27,11 @@ in {
   home.homeDirectory = "/home/" + userSettings.username;
   home.stateVersion = "23.05";
   home.packages = with pkgs; [
-    templ
     btop
     rustup
     (pkgs.nerdfonts.override {
-      fonts = [ "VictorMono" "DroidSansMono" "FiraCode" ];
+      fonts =
+        [ "VictorMono" "DroidSansMono" "FiraCode" "NerdFontsSymbolsOnly" ];
     })
   ];
   programs.home-manager = { enable = true; };

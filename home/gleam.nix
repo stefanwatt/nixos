@@ -1,1 +1,1 @@
-{ pkgs, ... }: { home.packages = with pkgs; [ gleam ]; }
+{ pkgs-unstable, ... }: { home.packages = with pkgs-unstable; [ gleam ]; }

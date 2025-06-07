@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    musnix = { url = "github:musnix/musnix"; };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {
@@ -16,23 +17,17 @@
         # flake-utils.follows = "flake-utils";
       };
     };
-    nix-ld.url = "github:Mic92/nix-ld";
-    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/cf8b6e2d4e8aca8ef14b839a906ab5eb98b08561";
     neovim.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     hyprContrib.url = "github:hyprwm/contrib";
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.35.0";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.49.0";
     hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.35.0";
+      url = "github:outfoxxed/hy3?ref=hl0.49.0";
       inputs.hyprland.follows = "hyprland";
     };
     anyrun = {
       url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    templ = {
-      url = "github:a-h/templ";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ssbm = { url = "github:djanatyn/ssbm-nix"; };
@@ -40,16 +35,19 @@
       url = "git+https://git.sr.ht/~fgaz/nix-bubblewrap";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lux.url = "git+https://github.com/nvim-neorocks/lux";
   };
 
-  outputs = { self, nix-ld, nixpkgs-unstable, nixpkgs, home-manager, flake-utils
-    , ... }@inputs:
+  outputs =
+    { self, nixpkgs-unstable, nixpkgs, home-manager, flake-utils, ... }@inputs:
     let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit (systemSettings) system;
         config = {
           allowUnfree = true;
-          permittedInsecurePackages = [ "electron-19.1.9" ];
+          # permittedInsecurePackages =
+          #   [ "electron-19.1.9" "electron" "windsurf" ];
         };
         overlays = [
           (final: prev: {
@@ -85,7 +83,11 @@
           })
         ];
       };
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
+      # pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       systemSettings = { system = "x86_64-linux"; };
       hyprland = {
@@ -103,7 +105,7 @@
 
       userSettings = {
         username = "stefan";
-        wm = i3;
+        wm = hyprland;
         font = {
           mono = {
             name = "Victor Mono Nerd Font Mono";
@@ -160,13 +162,12 @@
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          modules = [ ./configuration.nix ];
+          modules = [ ./configuration.nix inputs.musnix.nixosModules.musnix ];
           specialArgs = {
             inherit inputs;
             inherit userSettings;
             inherit systemSettings;
             inherit pkgs-unstable;
-            inherit nix-ld;
           };
         };
       };

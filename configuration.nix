@@ -17,18 +17,18 @@
     ./configuration/stylix.nix
     ./configuration/users.nix
     ./configuration/virtualisation.nix
+    # ./configuration/home-assistant.nix
   ] ++ xserver;
 
   system.stateVersion = "23.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [ "electron-19.1.9" ];
-  };
+
+  nixpkgs.config = { allowUnfree = true; };
 
   hardware = {
     firmware = [ pkgs.linux-firmware ];
     opengl = {
+      package = pkgs-unstable.mesa;
       enable = true;
       extraPackages = [ pkgs.amdvlk ];
       driSupport = true;
@@ -39,6 +39,7 @@
   };
 
   boot = {
+    kernelPackages = pkgs-unstable.linuxPackages_latest;
     initrd.kernelModules = [ "amdgpu" "gcadapter_oc" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -72,6 +73,10 @@
   };
 
   programs = {
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
     thunar.enable = true;
     zsh.enable = true;
     dconf.enable = true;
@@ -86,11 +91,8 @@
     i3
     firefox
     chromium
-    brave
     discord
     telegram-desktop
-    qbittorrent
-    signal-desktop
     remmina
     libreoffice
     dbeaver-bin
@@ -142,6 +144,6 @@
     libGLU
     qdirstat
     pinta
-  ]) ++ (with pkgs-unstable; [ input-remapper yazi ]);
+  ]) ++ (with pkgs-unstable; [ input-remapper yazi brave ]);
 
 }

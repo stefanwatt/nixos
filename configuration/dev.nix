@@ -1,7 +1,7 @@
-{ pkgs, nix-ld, pkgs-unstable, ... }: {
+{ pkgs, pkgs-unstable, inputs, ... }: {
 
-  imports = [ nix-ld.nixosModules.nix-ld ];
-  users.users.stefan.shell = pkgs-unstable.nushell;
+  # imports = [ nix-ld.nixosModules.nix-ld ];
+  users.users.stefan.shell = pkgs-unstable.zsh;
   environment.shells = with pkgs; [ zsh ];
   security.pam.loginLimits = [{
     domain = "*";
@@ -15,7 +15,7 @@
       (python311Full.withPackages (ps: with ps; [ tiktoken ]))
       gcc9
       postman
-      go
+
       delve
       gdlv
       vim
@@ -57,9 +57,13 @@
       modd
       yarn
       wails
+      pkg-config
+      webkitgtk
+      ntfs3g
+      glib
+      inputs.lux.packages.${pkgs.system}.default
     ] ++ (with pkgs-unstable; [
-      zed-editor
-      arduino-ide
+      claude-code
       gh
       protobuf
       protoc-gen-grpc-web
@@ -69,9 +73,19 @@
       gum
       helix
       deno
+      ghex
+      supabase-cli
+      tailwindcss
+      electron
+      love
+      # windsurf
+      code-cursor
+      typora
+      multipass
+      go
     ]);
-  programs.nix-ld.dev = {
-    enable = true;
-    libraries = with pkgs; [ nodejs_20 ];
-  };
+  # programs.nix-ld.dev = {
+  #   enable = true;
+  #   libraries = with pkgs; [ nodejs_20 ];
+  # };
 }
