@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, inputs, userSettings, ... }:
+{ pkgs, inputs, userSettings, ... }:
 let
   mapHyprlandColors = { colors }:
     let
@@ -11,8 +11,9 @@ let
   startupScript = import ./startup.nix { inherit pkgs; };
   colorSettings = mapHyprlandColors { colors = userSettings.colors; };
 in {
+  imports = [ ./systemd.nix ];
   nixpkgs.overlays = [ inputs.hyprContrib.overlays.default ];
-  home.packages = with pkgs-unstable; [
+  home.packages = with pkgs; [
     xorg.xhost
     xorg.xmodmap
     xorg.xev
@@ -24,7 +25,6 @@ in {
     glib
     gdm
     wlprop
-    albert
     wl-clipboard
     wdisplays
     swaybg
@@ -38,10 +38,25 @@ in {
     ghostty
     satty
     slurp
+    eww
+    nerd-fonts.iosevka
+    nerd-fonts.jetbrains-mono
+    icomoon-feather
+    bc
+    libnotify
+    hyprcursor
+    wtype
   ];
   home.file."Scripts/go-launch.sh" = {
     source = ../scripts/go-launch.sh;
     executable = true;
+  };
+  home.pointerCursor = {
+    name = "Bibata-Modern-Amber";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
@@ -55,7 +70,6 @@ in {
       exec-once = [
         "${startupScript}/bin/start"
         "${pkgs.xorg.xmodmap}/bin/xmodmap /home/${userSettings.username}/.Xmodmap"
-        "${pkgs.wezterm}/bin/wezterm"
       ];
       source = [
         "/home/stefan/.config/nixos/home/hyprland/config/general.conf"

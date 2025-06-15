@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     lutris
-    steam-run
     wineWowPackages.stable
     wine
     (wine.override { wineBuild = "wine64"; })

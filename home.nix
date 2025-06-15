@@ -6,13 +6,12 @@ let
     ./home/hyprland/hyprland.nix;
 in {
   imports = [
-    ./home/anyrun.nix
+    ./home/desktop.nix
+    ./home/dev.nix
     ./home/git.nix
-    ./home/gleam.nix
     ./home/gtk.nix
     ./home/keymap.nix
-    ./home/neovim.nix
-    ./home/nodejs.nix
+    ./home/multimedia.nix
     ./home/scripts/switch-audio-device.nix
     ./home/scripts/fuzzy-find-project.nix
     ./home/vscode.nix
@@ -26,13 +25,5 @@ in {
   home.username = userSettings.username;
   home.homeDirectory = "/home/" + userSettings.username;
   home.stateVersion = "23.05";
-  home.packages = with pkgs; [
-    btop
-    rustup
-    (pkgs.nerdfonts.override {
-      fonts =
-        [ "VictorMono" "DroidSansMono" "FiraCode" "NerdFontsSymbolsOnly" ];
-    })
-  ];
   programs.home-manager = { enable = true; };
 }

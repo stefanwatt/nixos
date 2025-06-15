@@ -33,6 +33,7 @@
   };
   home.packages = with pkgs;
     [
+      flameshot
       i3
       polkit_gnome
       autokey
@@ -50,5 +51,8 @@
       xorg.xf86videoamdgpu
       xorg.xinit
       emoji-picker
+      xorg.libxcvt
+      xorg.xf86videoati
+      xcolor
     ] ++ (with pkgs-unstable; [ wezterm ]);
 }

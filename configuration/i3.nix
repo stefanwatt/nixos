@@ -23,17 +23,5 @@ in {
 
     windowManager.i3.enable = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    i3
-    autokey
-    arandr
-    xdotool
-    nitrogen
-    picom
-    rofi
-    xclip
-    xorg.xkill
-    xorg.libX11
-  ];
+  environment.systemPackages = with pkgs; [ i3 ];
 }

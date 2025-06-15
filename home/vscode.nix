@@ -4,7 +4,7 @@
   nixpkgs.config = { allowUnfree = true; };
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       catppuccin.catppuccin-vsc
       vscodevim.vim
       svelte.svelte-vscode

@@ -14,6 +14,8 @@ let
     };
   };
 in {
+  musnix.enable = true;
+  services.udisks2.enable = true;
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -59,9 +61,9 @@ in {
     blueman.enable = true;
     flatpak.enable = true;
     openssh.enable = true;
-    udisks2.enable = true;
+    # udisks2.enable = true;
   };
-  services.udev.packages = [ pkgs.dolphinEmu pkgs.vial pkgs.via ];
+  services.udev.packages = [ pkgs.dolphin-emu pkgs.vial pkgs.via ];
   services.udev.extraRules = ''
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
@@ -71,5 +73,4 @@ in {
     # wlr.enable = true;
     config.common.default = "*";
   };
-
 }

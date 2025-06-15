@@ -10,8 +10,6 @@ pkgs.writeShellScriptBin "start" ''
   ${pkgs.dunst}/bin/dunst -conf ~/.config/sway/dunstrc &
   echo "${pkgs.wezterm}/bin/wezterm --class scratchpad,scratchpad "
   ${pkgs.wezterm}/bin/wezterm start --class scratchpad,scratchpad  &
-  echo "${pkgs.wezterm}/bin/wezterm -o font.size=40 --class Clock,Clock -e tty-clock -n -s"
-  ${pkgs.wezterm}/bin/wezterm --config font_size=40 start --always-new-process --class Clock,Clock tty-clock -n -s &
   echo "${pkgs.polkit_gnome}/bin/polkit-gnome-authentication-agent-1"
   ${pkgs.polkit_gnome}/bin/polkit-gnome-authentication-agent-1 &
   echo "${pkgs.udiskie}/bin/udiskie"

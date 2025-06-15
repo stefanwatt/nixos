@@ -2,20 +2,18 @@
   description = "Adapted Main Config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
+    nixpkgs-old.url = "github:NixOS/nixpkgs/release-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
     musnix = { url = "github:musnix/musnix"; };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # flake-utils.follows = "flake-utils";
-      };
+      inputs = { nixpkgs.follows = "nixpkgs"; };
     };
     stylix.url = "github:danth/stylix/cf8b6e2d4e8aca8ef14b839a906ab5eb98b08561";
     neovim.url = "github:nix-community/neovim-nightly-overlay";
@@ -26,67 +24,38 @@
       url = "github:outfoxxed/hy3?ref=hl0.49.0";
       inputs.hyprland.follows = "hyprland";
     };
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ssbm = { url = "github:djanatyn/ssbm-nix"; };
-    nix-bubblewrap = {
-      url = "git+https://git.sr.ht/~fgaz/nix-bubblewrap";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lux.url = "git+https://github.com/nvim-neorocks/lux";
+    # lux.url = "git+https://github.com/nvim-neorocks/lux";
   };
 
-  outputs =
-    { self, nixpkgs-unstable, nixpkgs, home-manager, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs-old, nixpkgs-unstable, nixpkgs, home-manager
+    , flake-utils, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit (systemSettings) system;
         config = {
           allowUnfree = true;
-          # permittedInsecurePackages =
-          #   [ "electron-19.1.9" "electron" "windsurf" ];
+          allowBroken = true;
+          doCheck = false;
         };
-        overlays = [
-          (final: prev: {
-            gleam = final.rustPlatform.buildRustPackage rec {
-              pname = "gleam";
-              version = "1.4.1";
-
-              src = final.fetchFromGitHub {
-                owner = "gleam-lang";
-                repo = "gleam";
-                rev = "v${version}";
-                sha256 =
-                  "sha256-ncb95NjBH/Nk4XP2QIq66TgY1F7UaOaRIEvZchdo5Kw="; # Update this hash
-              };
-
-              cargoHash =
-                "sha256-5+LQKCBWXvvJJN0U+t9elSem4WLdoosiEAH4H+4bZ9U="; # Update this hash
-
-              nativeBuildInputs = with final; [ pkg-config ];
-
-              buildInputs = with final; [ openssl ];
-
-              # Disable running the tests as part of the build process
-              doCheck = false;
-
-              meta = with final.lib; {
-                description =
-                  "A friendly language for building type-safe, scalable systems!";
-                homepage = "https://gleam.run/";
-                license = licenses.asl20;
-              };
-            };
-          })
-        ];
       };
-      # pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
+
+      pkgs-old = import nixpkgs-old {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          allowBroken = true;
+          doCheck = false;
+        };
+      };
+
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          allowBroken = true;
+          doCheck = false;
+        };
       };
 
       systemSettings = { system = "x86_64-linux"; };
@@ -153,6 +122,7 @@
           modules = [ ./home.nix ];
           extraSpecialArgs = {
             inherit pkgs-unstable;
+            inherit pkgs-old;
             inherit inputs;
             inherit userSettings;
             inherit systemSettings;
@@ -168,6 +138,7 @@
             inherit userSettings;
             inherit systemSettings;
             inherit pkgs-unstable;
+            inherit pkgs-old;
           };
         };
       };

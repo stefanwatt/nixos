@@ -8,9 +8,8 @@
     ./hardware-configuration.nix
     ./configuration/dev.nix
     ./configuration/filesystem.nix
-    ./configuration/gaming.nix
+    # ./configuration/gaming.nix
     ./configuration/locale.nix
-    ./configuration/multimedia.nix
     ./configuration/networking.nix
     ./configuration/pipewire.nix
     ./configuration/services.nix
@@ -23,23 +22,25 @@
   system.stateVersion = "23.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
 
-  nixpkgs.config = { allowUnfree = true; };
+  nixpkgs.config = {
+    doCheck = false;
+    allowUnfree = true;
+    allowBroken = true;
+  };
 
   hardware = {
     firmware = [ pkgs.linux-firmware ];
-    opengl = {
-      package = pkgs-unstable.mesa;
+    graphics = {
+      package = pkgs.mesa;
       enable = true;
       extraPackages = [ pkgs.amdvlk ];
-      driSupport = true;
-      driSupport32Bit = true;
     };
     bluetooth.enable = true;
-    pulseaudio.enable = false;
   };
 
   boot = {
-    kernelPackages = pkgs-unstable.linuxPackages_latest;
+    tmp.cleanOnBoot = true;
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ "amdgpu" "gcadapter_oc" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -65,7 +66,9 @@
         "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
       ];
+      trusted-users = [ "root" userSettings.username ];
       trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # Add this line
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
@@ -87,63 +90,22 @@
     };
   };
 
-  environment.systemPackages = (with pkgs; [
-    i3
+  environment.systemPackages = with pkgs; [
     firefox
     chromium
-    discord
-    telegram-desktop
-    remmina
-    libreoffice
-    dbeaver-bin
-    gnome.gnome-keyring
-    cloc
+    gnome-keyring
     home-manager
-    megasync
-    jmtpfs
-    tty-clock
-    alacritty
-    zsh
-    xfce.thunar
-    lxqt.qps
-    ranger
-    dolphin-emu
-    gparted
     udisks2
     udiskie
-    blueman
-    rclone
     wget
-    iftop
     openssh
-    unzip
-    xcolor
-    wuzz
-    # anydesk
-    yt-dlp
-    stylua
-    fd
-    ripgrep
-    fzf
-    cloc
-    tty-clock
-    megasync
-    p7zip
-    rar
     polkit_gnome
-    dunst
-    jq
-    catppuccin-gtk
-    xorg.libxcvt
-    xorg.xf86videoati
-    xorg.xf86videoamdgpu
-    ps
-    fuse-common
-    appimage-run
-    libGL
-    libGLU
-    qdirstat
-    pinta
-  ]) ++ (with pkgs-unstable; [ input-remapper yazi brave ]);
-
+  ];
+  programs.fuse.userAllowOther = true;
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "*/10 * * * * stefan /home/${userSettings.username}/.config/eww/scripts/weather.sh --getdata"
+    ];
+  };
 }

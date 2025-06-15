@@ -2,6 +2,10 @@
 let
   sqliteLibPath = lib.makeLibraryPath [ pkgs.sqlite ];
   typescriptPath = lib.makeLibraryPath [ pkgs.nodePackages.typescript ];
+  paste-clipboard = if userSettings.wm.name == "i3" then
+    "xclip -selection clipboard -o"
+  else
+    "wl-paste";
 in {
   programs.fzf = {
     enable = true;
@@ -47,13 +51,13 @@ in {
       find-file = "find $1 -type f -name $2";
       find-dir = "find $1 -type d -name $2";
       modscl = "mods --continue-last";
-      modsclip = "xclip -selection clipboard -o | mods";
+      modsclip = "${paste-clipboard} | mods";
     };
     oh-my-zsh = {
       enable = true;
       theme = "dst";
     };
-    initExtra = ''
+    initContent = ''
       bindkey '^f' autosuggest-accept
       source ~/.extra-zshrc
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
