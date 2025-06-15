@@ -1,5 +1,9 @@
 { pkgs, pkgs-unstable, ... }: {
-
+  programs.direnv = {
+    enable = true;
+    silent = true;
+    nix-direnv.enable = true;
+  };
   users.users.stefan.shell = pkgs-unstable.zsh;
   environment.shells = with pkgs; [ zsh ];
   security.pam.loginLimits = [{

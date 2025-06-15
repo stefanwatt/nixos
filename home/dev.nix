@@ -2,7 +2,27 @@
 let
   luaConfigPaths = with userSettings;
     "/home/${username}/.config/nvim/lua/config/paths.lua";
+  flakeTemplate = ./templates/flake/flake.nix;
 in {
+  home.file.".config/nix-templates/flake.nix".source =
+    ./templates/flake/flake.nix;
+  home.file."Scripts/nix-shell-init" = {
+    text = ''
+      #!/run/current-system/sw/bin/bash
+
+      if [ -f "flake.nix" ]; then
+          echo "Error: flake.nix already exists"
+          exit 1
+      fi
+
+      cp ${flakeTemplate} ./flake.nix
+      echo "use flake" > .envrc
+      direnv allow
+
+      echo "Nix shell initialized!"
+    '';
+    executable = true;
+  };
   home.file."${luaConfigPaths}" = {
     text = ''
       ---@class Config.Paths

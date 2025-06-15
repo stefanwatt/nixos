@@ -28,6 +28,8 @@ in {
       neodiff = "NVIM_APPNAME=nvim-minimal nvim -d -o $1 $2";
       ll = "ls -l";
       turso = "~/.turso/turso";
+      nd = "nix develop";
+      nsi = "~/Scripts/nix-shell-init";
       nu = "sudo nixos-rebuild switch --flake ~/.config/nixos";
       n = "nvim";
       nvi2 = "nvim";
