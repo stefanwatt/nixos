@@ -31,8 +31,13 @@
     , flake-utils, ... }@inputs:
     let
       system = "x86_64-linux";
+      
+      # Import profiles and settings
+      profiles = import ./profiles { inherit system; username = "stefan"; };
+      inherit (profiles) systemSettings userSettings;
+      
       pkgs = import nixpkgs {
-        inherit (systemSettings) system;
+        inherit system;
         config = {
           allowUnfree = true;
           allowBroken = true;
@@ -55,64 +60,6 @@
           allowUnfree = true;
           allowBroken = true;
           doCheck = false;
-        };
-      };
-
-      systemSettings = { system = "x86_64-linux"; };
-      hyprland = {
-        name = "hyprland";
-        configFilePath = "~/.config/nixos/home/hyprland/hyprland.nix";
-        session = inputs.hyprland.packages."${pkgs.system}".hyprland
-          + "/bin/Hyprland";
-
-      };
-      i3 = {
-        name = "i3";
-        configFilePath = "~/.config/myi3/config";
-        session = "startx ~/.xinitrc ${pkgs.i3}/bin/i3";
-      };
-
-      userSettings = {
-        username = "stefan";
-        wm = hyprland;
-        font = {
-          mono = {
-            name = "Victor Mono Nerd Font Mono";
-            size = 12;
-          };
-          regular = {
-            name = "DevaVu Sans";
-            size = 12;
-          };
-        };
-        colors = {
-          transparent = "#01000000";
-          rosewater = "#f2d5cf";
-          flamingo = "#eebebe";
-          pink = "#f4b8e4";
-          mauve = "#ca9ee6";
-          red = "#e78284";
-          maroon = "#ea999c";
-          peach = "#ef9f76";
-          yellow = "#e5c890";
-          green = "#a6d189";
-          teal = "#81c8be";
-          sky = "#99d1db";
-          sapphire = "#85c1dc";
-          blue = "#8caaee";
-          lavender = "#babbf1";
-          text = "#c6d0f5";
-          subtext1 = "#b5bfe2";
-          subtext0 = "#a5adce";
-          overlay2 = "#949cbb";
-          overlay1 = "#838ba7";
-          overlay0 = "#737994";
-          surface2 = "#626880";
-          surface1 = "#51576d";
-          surface0 = "#414559";
-          base = "#303446";
-          mantle = "#292c3c";
-          crust = "#232634";
         };
       };
     in {

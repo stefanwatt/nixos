@@ -1,9 +1,6 @@
 { pkgs, inputs, userSettings, ... }:
 let
-  wm = if userSettings.wm.name == "i3" then
-    ./home/i3/i3.nix
-  else
-    ./home/hyprland/hyprland.nix;
+  wmModule = import ./modules/wm { inherit userSettings; };
 in {
   imports = [
     ./home/desktop.nix
@@ -12,12 +9,12 @@ in {
     ./home/gtk.nix
     ./home/keymap.nix
     ./home/multimedia.nix
-    ./home/scripts/switch-audio-device.nix
     ./home/scripts/fuzzy-find-project.nix
+    ./modules/audio
     ./home/vscode.nix
     ./home/nushell.nix
     ./home/zsh.nix
-    wm
+    wmModule.wmImportPath
   ];
   manual.html.enable = false;
   manual.manpages.enable = false;

@@ -1,10 +1,7 @@
-{ config, userSettings, pkgs, pkgs-unstable, ... }: {
-  imports = let
-    xserver = if userSettings.wm.name == "i3" then
-      [ ./configuration/xserver.nix ]
-    else
-      [ ];
-  in [
+{ config, userSettings, pkgs, ... }:
+let wmModule = import ./modules/wm { inherit userSettings; };
+in {
+  imports = [
     ./hardware-configuration.nix
     ./configuration/dev.nix
     ./configuration/filesystem.nix
@@ -17,7 +14,7 @@
     ./configuration/users.nix
     ./configuration/virtualisation.nix
     # ./configuration/home-assistant.nix
-  ] ++ xserver;
+  ] ++ wmModule.wmSystemImports;
 
   system.stateVersion = "23.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;

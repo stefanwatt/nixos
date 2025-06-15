@@ -1,5 +1,6 @@
 { userSettings, pkgs, lib, ... }:
 let
+  wmModule = import ../modules/wm { inherit userSettings; };
   graphicalService = execStart: {
     description = execStart;
     wantedBy = [ "graphical-session.target" ];
@@ -45,11 +46,11 @@ in {
       enable = true;
       settings = {
         initial_session = {
-          command = "${wm.session}";
+          command = "${wmModule.sessionCommand}";
           user = "${username}";
         };
         default_session = {
-          command = "${wm.session}";
+          command = "${wmModule.sessionCommand}";
           user = "${username}";
         };
       };
