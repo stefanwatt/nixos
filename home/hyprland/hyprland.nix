@@ -46,6 +46,7 @@ in {
     libnotify
     hyprcursor
     wtype
+    cosmic-files
   ];
   home.file."Scripts/go-launch.sh" = {
     source = ../scripts/go-launch.sh;

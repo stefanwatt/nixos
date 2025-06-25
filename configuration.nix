@@ -5,7 +5,6 @@ in {
     ./hardware-configuration.nix
     ./configuration/dev.nix
     ./configuration/filesystem.nix
-    # ./configuration/gaming.nix
     ./configuration/locale.nix
     ./configuration/networking.nix
     ./configuration/pipewire.nix
@@ -65,9 +64,9 @@ in {
       ];
       trusted-users = [ "root" userSettings.username ];
       trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # Add this line
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
   };

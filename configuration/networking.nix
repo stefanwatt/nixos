@@ -11,6 +11,7 @@
         from = 1899;
         to = 1901;
       }];
+      allowedTCPPorts = [ 10400 ];
       allowedTCPPortRanges = [
         {
           from = 2999;
