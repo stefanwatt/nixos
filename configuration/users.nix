@@ -11,6 +11,7 @@
       "audio"
       "video"
       "render"
+      "ydotool"
     ];
   };
   users.extraGroups = {

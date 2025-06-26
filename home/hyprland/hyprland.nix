@@ -47,6 +47,7 @@ in {
     hyprcursor
     wtype
     cosmic-files
+    ydotool
   ];
   home.file."Scripts/go-launch.sh" = {
     source = ../scripts/go-launch.sh;

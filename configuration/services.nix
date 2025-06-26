@@ -41,8 +41,8 @@ in {
   };
 
   environment.systemPackages = with pkgs; [ greetd.greetd greetd.tuigreet ];
-  services.greetd = lib.mkIf (userSettings.wm.name == "hyprland")
-    (with userSettings; {
+  services = {
+    greetd = lib.mkIf (userSettings.wm.name == "hyprland") (with userSettings; {
       enable = true;
       settings = {
         initial_session = {
@@ -55,23 +55,30 @@ in {
         };
       };
     });
-
-  services = {
+    octoprint = {
+      enable = true;
+      openFirewall = true;
+      user = "stefan";
+    };
     dbus.enable = true;
     printing.enable = true;
     blueman.enable = true;
     flatpak.enable = true;
     openssh.enable = true;
     # udisks2.enable = true;
+    udev = {
+      packages = [ pkgs.dolphin-emu pkgs.vial pkgs.via ];
+      extraRules = ''
+        KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+      '';
+    };
+
   };
-  services.udev.packages = [ pkgs.dolphin-emu pkgs.vial pkgs.via ];
-  services.udev.extraRules = ''
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-  '';
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     # wlr.enable = true;
     config.common.default = "*";
   };
+
 }
